@@ -77,8 +77,13 @@ else {
                 <th class="text-center">ID Transaksi</th>
                 <th class="text-center">Tanggal</th>
                 <th class="text-center">Barang</th>
+                <th class="text-center">Jenis</th>
+                <th class="text-center">Harga</th>
                 <th class="text-center">Jumlah Keluar</th>
                 <th class="text-center">Satuan</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">Diserahkan</th>
+                <th class="text-center">Sisa</th>
                 <th class="text-center">Aksi</th>
               </tr>
             </thead>
@@ -86,22 +91,27 @@ else {
               <?php
               // variabel untuk nomor urut tabel
               $no = 1;
-              // sql statement untuk menampilkan data dari tabel "tbl_barang_keluar", tabel "tbl_barang", dan tabel "tbl_satuan"
-              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                              FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c
-                                              ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
+              // sql statement untuk menampilkan data dari tabel "tbl_barang_keluar", tabel "tbl_barang", tabel "tbl_satuan" dan tabel "tbl_jenis" dan tabel "tbl_barang_masuk"
+              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalk, a.barang, a.hargak, a.jumlahk, a.totalk, a.serah, b.nama_barang, b.stok, c.nama_satuan, d.nama_jenis
+                                              FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d 
+                                              ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis
                                               ORDER BY a.id_transaksi DESC")
                                               or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
               // ambil data hasil query
               while ($data = mysqli_fetch_assoc($query)) { ?>
                 <!-- tampilkan data -->
                 <tr>
-                  <td width="50" class="text-center"><?php echo $no++; ?></td>
+                  <td width="30" class="text-center"><?php echo $no++; ?></td>
                   <td width="90" class="text-center"><?php echo $data['id_transaksi']; ?></td>
-                  <td width="70" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-                  <td width="220"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
-                  <td width="100" class="text-right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
-                  <td width="60"><?php echo $data['nama_satuan']; ?></td>
+                  <td width="100" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
+                  <td width="140"><?php echo $data['nama_barang']; ?></td>
+                  <td width="100"><?php echo $data['nama_jenis']; ?></td>
+                  <td width="90" class="text-center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
+                  <td width="90" class="text-right"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
+                  <td width="60" class="text-center"><?php echo $data['nama_satuan']; ?></td>
+                  <td width="110" class="text-center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
+                  <td width="100"><?php echo $data['serah']; ?></td>
+                  <td width="50" class="text-right"><?php echo $data['stok']; ?></td>
                   <td width="50" class="text-center">
                     <div>
                       <!-- tombol hapus data -->

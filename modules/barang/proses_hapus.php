@@ -32,21 +32,6 @@ else {
     }
     // jika data barang belum ada di tabel "tbl_transaksi"
     else {
-      // mengecek data foto barang
-      // sql statement untuk menampilkan data "foto" dari tabel "tbl_barang" berdasarkan "id_barang"
-      $query = mysqli_query($mysqli, "SELECT foto FROM tbl_barang WHERE id_barang='$id_barang'")
-                                      or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-      // ambil data hasil query
-      $data = mysqli_fetch_assoc($query);
-      // tampilkan data
-      $foto = $data['foto'];
-
-      // jika data "foto" tidak kosong
-      if (!empty($foto)) {
-        // hapus file foto dari folder images
-        $hapus_file = unlink("../../images/$foto");
-      }
-
       // sql statement untuk delete data dari tabel "tbl_barang" berdasarkan "id_barang"
       $delete = mysqli_query($mysqli, "DELETE FROM tbl_barang WHERE id_barang='$id_barang'")
                                        or die('Ada kesalahan pada query delete : ' . mysqli_error($mysqli));

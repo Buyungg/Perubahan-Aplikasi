@@ -16,16 +16,19 @@ else {
   if (isset($_POST['simpan'])) {
     // ambil data hasil submit dari form
     $id_transaksi  = mysqli_real_escape_string($mysqli, $_POST['id_transaksi']);
-    $tanggal       = mysqli_real_escape_string($mysqli, trim($_POST['tanggal']));
+    $tanggalk       = mysqli_real_escape_string($mysqli, trim($_POST['tanggalk']));
     $barang        = mysqli_real_escape_string($mysqli, $_POST['barang']);
-    $jumlah        = mysqli_real_escape_string($mysqli, $_POST['jumlah']);
+    $hargak        = mysqli_real_escape_string($mysqli, $_POST['hargak']);
+    $jumlahk        = mysqli_real_escape_string($mysqli, $_POST['jumlahk']);
+    $totalk        = $jumlahk*$hargak;
+    $serah        = mysqli_real_escape_string($mysqli, $_POST['serah']);
 
     // ubah format tanggal menjadi Tahun-Bulan-Hari (Y-m-d) sebelum disimpan ke database
-    $tanggal_keluar = date('Y-m-d', strtotime($tanggal));
+    $tanggal_keluar = date('Y-m-d', strtotime($tanggalk));
 
     // sql statement untuk insert data ke tabel "tbl_barang_keluar"
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_keluar(id_transaksi, tanggal, barang, jumlah) 
-                                     VALUES('$id_transaksi', '$tanggal_keluar', '$barang', '$jumlah')")
+    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_keluar(id_transaksi, tanggalk, barang, hargak, jumlahk, totalk, serah) 
+                                     VALUES('$id_transaksi', '$tanggal_keluar', '$barang', '$hargak', '$jumlahk', '$totalk', '$serah')")
                                      or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
     // cek query
     // jika proses insert berhasil

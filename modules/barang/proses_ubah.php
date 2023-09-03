@@ -20,13 +20,14 @@ else {
     $jenis              = mysqli_real_escape_string($mysqli, $_POST['jenis']);
     $stok_minimum       = mysqli_real_escape_string($mysqli, $_POST['stok_minimum']);
     $satuan             = mysqli_real_escape_string($mysqli, $_POST['satuan']);
+    $harga             = mysqli_real_escape_string($mysqli, $_POST['harga']);
 
     // mengecek data foto dari form ubah data
     // jika data foto tidak ada (foto tidak diubah)
     if (empty($nama_file)) {
       // sql statement untuk update data di tabel "tbl_barang" berdasarkan "id_barang"
       $update = mysqli_query($mysqli, "UPDATE tbl_barang
-                                       SET nama_barang='$nama_barang', jenis='$jenis', stok_minimum='$stok_minimum', satuan='$satuan'
+                                       SET nama_barang='$nama_barang', jenis='$jenis', stok_minimum='$stok_minimum', satuan='$satuan', harga='$harga'
                                        WHERE id_barang='$id_barang'")
                                        or die('Ada kesalahan pada query update : ' . mysqli_error($mysqli));
       // cek query

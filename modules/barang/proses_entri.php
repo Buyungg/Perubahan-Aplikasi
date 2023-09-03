@@ -20,12 +20,13 @@ else {
     $jenis              = mysqli_real_escape_string($mysqli, $_POST['jenis']);
     $stok_minimum       = mysqli_real_escape_string($mysqli, $_POST['stok_minimum']);
     $satuan             = mysqli_real_escape_string($mysqli, $_POST['satuan']);
+    $harga             = mysqli_real_escape_string($mysqli, $_POST['harga']);
     // mengecek data foto dari form entri data
     // jika data foto tidak ada
     if (empty($nama_file)) {
       // sql statement untuk insert data ke tabel "tbl_barang"
-      $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang(id_barang, nama_barang, jenis, stok_minimum, satuan) 
-                                       VALUES('$id_barang', '$nama_barang', '$jenis', '$stok_minimum', '$satuan')")
+      $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang(id_barang, nama_barang, jenis, stok_minimum, satuan, harga) 
+                                       VALUES('$id_barang', '$nama_barang', '$jenis', '$stok_minimum', '$satuan', '$harga')")
                                        or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
       // cek query
       // jika proses insert berhasil

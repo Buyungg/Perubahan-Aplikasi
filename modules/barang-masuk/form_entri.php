@@ -73,7 +73,7 @@ else { ?>
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <label>Tanggal <span class="text-danger">*</span></label>
-                <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                <input type="text" name="tanggalm" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
                 <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
               </div>
             </div>
@@ -117,26 +117,31 @@ else { ?>
                 </div>
               </div>
 
-            </div>
+              <div class="form-group">
+                <label>Barang Dari <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <input type="text" id="dari" name="dari" class="form-control" required>
+                  <div id="dari" class="input-group-append"></div>
+                </div>
+              </div>
 
-          
+            </div>
 
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <label>Jumlah Masuk <span class="text-danger">*</span></label>
-                <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
+                <input type="text" id="jumlah" name="jumlahm" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
                 <div class="invalid-feedback">Jumlah masuk tidak boleh kosong.</div>
               </div>
 
               <div class="form-group">
-                <label>Harga<span class="text-danger">*</span></label>
-                <input type="text" id="harga" name="harga" class="form-control" required>
-                <div class="invalid-feedback">Harga tidak boleh kosong.</div>
+                <label> Harga <span class="text-danger">*</span></label>
+                <input type="text" id="data_harga" name="hargam" class="form-control" readonly>
               </div>
 
               <div class="form-group">
                 <label>Total Stok <span class="text-danger">*</span></label>
-                <input type="text" id="total" name="total" class="form-control" readonly>
+                <input type="text" id="total" name="totalm" class="form-control" readonly>
               </div>
             </div>
           </div>
@@ -167,10 +172,10 @@ else { ?>
             // tampilkan data
             $('#data_stok').val(result.stok);
             $('#data_jenis').val( result.nama_jenis);
+            $('#data_harga').val(result.harga);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
             $('#jumlah').focus();
-            $('#harga').focus();
           }
         });
       });

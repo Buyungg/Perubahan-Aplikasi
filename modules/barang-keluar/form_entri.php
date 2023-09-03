@@ -73,7 +73,7 @@ else { ?>
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <label>Tanggal <span class="text-danger">*</span></label>
-                <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                <input type="text" name="tanggalk" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
                 <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
               </div>
             </div>
@@ -102,6 +102,14 @@ else { ?>
               </div>
 
               <div class="form-group">
+                <label>Jenis <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <input type="text" id="data_jenis" name="jenis" class="form-control" readonly>
+                  <div id="data_jenis" class="input-group-append"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label>Stok <span class="text-danger">*</span></label>
                 <div class="input-group">
                   <input type="text" id="data_stok" name="stok" class="form-control" readonly>
@@ -113,8 +121,21 @@ else { ?>
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <label>Jumlah Keluar <span class="text-danger">*</span></label>
-                <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
+                <input type="text" id="jumlah" name="jumlahk" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
                 <div class="invalid-feedback">Jumlah keluar tidak boleh kosong.</div>
+              </div>
+
+              <div class="form-group">
+                <label>Diserahkan Kepada <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <input type="text" id="serah" name="serah" class="form-control" required>
+                  <div id="serah" class="input-group-append"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label> Harga <span class="text-danger">*</span></label>
+                <input type="text" id="data_harga" name="hargak" class="form-control" readonly>
               </div>
 
               <div class="form-group">
@@ -149,6 +170,8 @@ else { ?>
           success: function(result) {                   // ketika proses get data selesai
             // tampilkan data
             $('#data_stok').val(result.stok);
+            $('#data_jenis').val(result.nama_jenis);
+            $('#data_harga').val(result.harga);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
             $('#jumlah').focus();

@@ -17,6 +17,7 @@ else {
   // ambil data GET dari tombol export
   $tanggal_awal  = $_GET['tanggal_awal'];
   $tanggal_akhir = $_GET['tanggal_akhir'];
+  $jenis_barang = $_GET['jenis_barang'];
 
   // fungsi header untuk mengirimkan raw data excel
   header("Content-type: application/vnd-ms-excel");
@@ -28,9 +29,18 @@ else {
   <center>
     <h4>
       LAPORAN DATA BARANG MASUK<br>
-      Tanggal <?php echo $tanggal_awal; ?> s.d <?php echo $tanggal_akhir; ?>
     </h4>
   </center>
+
+  <div style="text-align:left">OPD        : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
+  <div style="text-align:left">KABUPATEN  : NGAWI</div>
+  <div style="text-align:left">PROVINSI   : JAWA TIMUR</div>
+  <br>
+  <br>
+  <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
+  <div style="text-align:left">TANGGAL    : <?php echo $tanggal_awal; ?> s.d <?php echo $tanggal_akhir; ?></div>
+  <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
+
   <!-- tabel untuk menampilkan data dari database -->
   <table border="1">
     <thead>
@@ -57,31 +67,31 @@ else {
       $no = 1;
 
       // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-      $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, a.harga, a.total, b.nama_barang, c.nama_satuan, d.nama_jenis
+      $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.barang, a.jumlahm, a.hargam, a.totalm, b.nama_barang, c.nama_satuan, d.nama_jenis
                                       FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d
                                       ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis
-                                      WHERE a.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' ORDER BY a.id_transaksi ASC")
+                                      WHERE a.tanggalm BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
                                       or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                                   
       // ambil data hasil query
       $total_jumlah = 0;
       $total_bayar = 0;
       while ($data = mysqli_fetch_assoc($query)) { 
-        $total_jumlah += $data['jumlah'];
-        $total_bayar += $data['total'];
+        $total_jumlah += $data['jumlahm'];
+        $total_bayar += $data['totalm'];
         
         ?>
         <!-- tampilkan data -->
         <tr>
           <td width="70" align="center"><?php echo $no++; ?></td>
           <td width="150" align="center"><?php echo $data['id_transaksi']; ?></td>
-          <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-          <td width="200" align="center"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
+          <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
+          <td width="200" align="center"><?php echo $data['nama_barang']; ?></td>
           <td width="150" align="center"><?php echo $data['nama_jenis']; ?></td>
-          <td width="130" align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
-          <td width="130" align="right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
+          <td width="130" align="center">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
+          <td width="130" align="right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
           <td width="130"><?php echo $data['nama_satuan']; ?></td>
-          <td width="130" align="center">Rp. <?php echo number_format($data['total'], 0, '', '.'); ?></td>
+          <td width="130" align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
           
         </tr>
       <?php } ?>

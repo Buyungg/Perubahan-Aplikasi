@@ -22,6 +22,7 @@ else {
   // ambil data GET dari tombol cetak
   $tanggal_awal  = $_GET['tanggal_awal'];
   $tanggal_akhir = $_GET['tanggal_akhir'];
+  $jenis_barang = $_GET['jenis_barang'];
 
   // gunakan dompdf class
   $dompdf = new Dompdf();
@@ -64,9 +65,9 @@ else {
   $no = 1;
   // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
   $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                  FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c 
-                                  ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
-                                  WHERE a.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' ORDER BY a.id_transaksi ASC")
+                                  FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d
+                                  ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis
+                                  WHERE a.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
                                   or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
   // ambil data hasil query
   while ($data = mysqli_fetch_assoc($query)) {
