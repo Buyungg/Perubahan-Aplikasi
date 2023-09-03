@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2023 at 09:28 AM
+-- Generation Time: Sep 03, 2023 at 08:04 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.29
 
@@ -33,17 +33,18 @@ CREATE TABLE `tbl_barang` (
   `jenis` int(11) NOT NULL,
   `stok_minimum` int(11) NOT NULL,
   `stok` int(11) NOT NULL DEFAULT 0,
-  `satuan` int(11) NOT NULL
+  `satuan` int(11) NOT NULL,
+  `harga` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbl_barang`
 --
 
-INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`) VALUES
-('B0001', 'Sound', 2, 10, 15, 2),
-('B0002', 'Spidol', 1, 5, 15, 3),
-('B0003', 'Kertas HVS', 1, 10, 0, 4);
+INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`, `harga`) VALUES
+('B0002', 'Spidol', 1, 0, 50, 3, 5000),
+('B0003', 'Kertas HVS', 1, 0, 0, 1, 50000),
+('B0004', 'Mouse', 2, 0, 0, 2, 70000);
 
 -- --------------------------------------------------------
 
@@ -53,31 +54,36 @@ INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `
 
 CREATE TABLE `tbl_barang_keluar` (
   `id_transaksi` varchar(10) NOT NULL,
-  `tanggal` date NOT NULL,
+  `tanggalk` date NOT NULL,
   `barang` varchar(5) NOT NULL,
-  `jumlah` int(11) DEFAULT NULL
+  `hargak` int(11) NOT NULL DEFAULT 0,
+  `jumlahk` int(11) DEFAULT NULL,
+  `totalk` int(11) NOT NULL DEFAULT 0,
+  `serah` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbl_barang_keluar`
 --
 
-INSERT INTO `tbl_barang_keluar` (`id_transaksi`, `tanggal`, `barang`, `jumlah`) VALUES
-('TK-0000001', '2023-08-25', 'B0001', 35);
+INSERT INTO `tbl_barang_keluar` (`id_transaksi`, `tanggalk`, `barang`, `hargak`, `jumlahk`, `totalk`, `serah`) VALUES
+('TK-0000004', '2023-09-02', 'B0004', 70000, 25, 1750000, 'Administrasi'),
+('TK-0000005', '2023-09-03', 'B0002', 5000, 50, 250000, 'Staff'),
+('TK-0000006', '2023-09-03', 'B0003', 50000, 20, 1000000, 'Pencetak');
 
 --
 -- Triggers `tbl_barang_keluar`
 --
 DELIMITER $$
 CREATE TRIGGER `hapus_stok_keluar` BEFORE DELETE ON `tbl_barang_keluar` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok+OLD.jumlah
+UPDATE tbl_barang SET stok=stok+OLD.jumlahk
 WHERE id_barang=OLD.barang;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `stok_keluar` AFTER INSERT ON `tbl_barang_keluar` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok-NEW.jumlah
+UPDATE tbl_barang SET stok=stok-NEW.jumlahk
 WHERE id_barang=NEW.barang;
 END
 $$
@@ -91,34 +97,36 @@ DELIMITER ;
 
 CREATE TABLE `tbl_barang_masuk` (
   `id_transaksi` varchar(10) NOT NULL,
-  `tanggal` date NOT NULL,
+  `tanggalm` date NOT NULL,
   `barang` varchar(5) NOT NULL,
-  `harga` int(11) NOT NULL DEFAULT 0,
-  `jumlah` int(11) DEFAULT NULL,
-  `total` int(11) NOT NULL DEFAULT 0
+  `hargam` int(11) NOT NULL DEFAULT 0,
+  `jumlahm` int(11) DEFAULT NULL,
+  `dari` varchar(255) NOT NULL DEFAULT '',
+  `totalm` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbl_barang_masuk`
 --
 
-INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggal`, `barang`, `harga`, `jumlah`, `total`) VALUES
-('TM-0000001', '2023-08-26', 'B0001', 9000, 50, 450000),
-('TM-0000002', '2023-08-26', 'B0002', 5000, 15, 75000);
+INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggalm`, `barang`, `hargam`, `jumlahm`, `dari`, `totalm`) VALUES
+('TM-0000001', '2023-09-01', 'B0003', 50000, 20, 'Bendahara Pengeluaran', 1000000),
+('TM-0000003', '2023-09-01', 'B0002', 5000, 100, 'Bendahara Pengeluaran', 500000),
+('TM-0000004', '2023-09-02', 'B0004', 70000, 25, 'Bendahara Pengeluaran', 1750000);
 
 --
 -- Triggers `tbl_barang_masuk`
 --
 DELIMITER $$
 CREATE TRIGGER `hapus_stok_masuk` BEFORE DELETE ON `tbl_barang_masuk` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok-OLD.jumlah
+UPDATE tbl_barang SET stok=stok-OLD.jumlahm
 WHERE id_barang=OLD.barang;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `stok_masuk` AFTER INSERT ON `tbl_barang_masuk` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok+NEW.jumlah
+UPDATE tbl_barang SET stok=stok+NEW.jumlahm
 WHERE id_barang=NEW.barang;
 END
 $$
@@ -183,9 +191,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
-(1, 'Admin', 'admin', '$2y$12$Yi/I5f1jPoQNQnh6lWoVfuz.RtZ3OHcKN6PU.I62P0fYK1tJ7xMRi', 'Administrator'),
-(2, 'Admin Gudang', 'admin gudang', '$2y$12$BeRYh13zfPXej97VgcfeNucYJGTElha5sRyIUQm1278D2u2Aqf6DS', 'Admin Gudang'),
-(3, 'Kepala Gudang', 'kepala gudang', '$2y$12$odXcPs.RLJJH6Ghv3s42c.5zg5qAOz/S3Adr0lXGNcVSJ6f1hHS6G', 'Kepala Gudang');
+(1, 'Admin', 'admin', '$2y$12$Yi/I5f1jPoQNQnh6lWoVfuz.RtZ3OHcKN6PU.I62P0fYK1tJ7xMRi', 'Administrator');
 
 --
 -- Indexes for dumped tables
