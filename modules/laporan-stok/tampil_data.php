@@ -116,7 +116,7 @@ else { ?>
               <div class="col-lg-2 pr-0">
                 <div class="form-group pt-3">
                   <!-- tombol cetak laporan -->
-                  <a href="modules/laporan-stok/cetak.php?stok=<?php echo $jenis_barang; ?>" target="_blank" class="btn btn-warning btn-round btn-block mt-4">
+                  <a href="modules/laporan-stok/cetak.php?jenis_barang=<?php echo $jenis_barang; ?>" target="_blank" class="btn btn-warning btn-round btn-block mt-4">
                     <span class="btn-label"><i class="fa fa-print mr-2"></i></span> Cetak
                   </a>
                 </div>
@@ -125,7 +125,7 @@ else { ?>
               <div class="col-lg-2 pl-0">
                 <div class="form-group pt-3">
                   <!-- tombol export laporan -->
-                  <a href="modules/laporan-stok/export.php?stok=<?php echo $jenis_barang; ?>" target="_blank" class="btn btn-success btn-round btn-block mt-4">
+                  <a href="modules/laporan-stok/export.php?jenis_barang=<?php echo $jenis_barang; ?>" target="_blank" class="btn btn-success btn-round btn-block mt-4">
                     <span class="btn-label"><i class="fa fa-file-excel mr-2"></i></span> Export
                   </a>
                 </div>
