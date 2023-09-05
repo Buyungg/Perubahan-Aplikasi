@@ -43,36 +43,50 @@ else {
   <br>
   <br>
   <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">PERIODE TANGGAL    : <?php echo $tanggal_awal; ?> s.d <?php echo $tanggal_akhir; ?></div>
+  <div style="text-align:left">TAHUN ANGGARAN    : <?php echo date('Y', strtotime($tanggal_awal)); ?></div>
   <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
 
     <!-- tabel untuk menampilkan data dari database -->
     <table border="1">
       <thead>
+        <tr>
+        <th height="50" align="center" vertical="center" rowspan="3">No.</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Tanggal Masuk</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Nama Barang</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Merk/Ukuran</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Tahun Pembuatan</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Dari</th>
+          <th width="130" colspan="6"> Penerimaan </th>
+          <th height="50" colspan="5">Pengeluaran</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Sisa</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Total Sisa</th>
+        </tr>
       <tr>
-        <th width="130" colspan="3"> </th>
-        <th width="130" colspan="9"> Penerimaan </th>
-        <th width="130" colspan="5"> Pengeluaran </th>
+    
+        <th width="130" colspan="2"> Jumlah Satuan/Barang </th>
+        <th width="130" colspan="2"> Tgl/No. Kontrak/SP/SPK </th>
+        <th width="130" colspan="2"> Berita Acara Pemeriksaan </th>
+        <th height="50" align="center" vertical="center" rowspan="2">Tanggal Dikeluarkan / Penyerahan</th>
+        <th height="50" align="center" vertical="center" rowspan="2">Diserahkan Kepada</th>
+        <th height="50" align="center" vertical="center" rowspan="2">Jumlah Barang</th>
+        <th width="130" colspan="2"> Tgl/No.Surat Penyerahan </th>
       </tr>
-        <tr style="background-color:#6861ce;color:#fff">
-          <th height="50" align="center" vertical="center">No.</th>
-          <th height="50" align="center" vertical="center">ID Barang</th>
-          <th height="50" align="center" vertical="center">Jenis Barang</th>
-          <th height="50" align="center" vertical="center">Tanggal Masuk</th>
-          <th height="50" align="center" vertical="center">Nama Barang</th>
-          <th height="50" align="center" vertical="center">Merk/Ukuran</th>
-          <th height="50" align="center" vertical="center">Tahun Pembuatan</th>
-          <th height="50" align="center" vertical="center">Dari</th>
-          <th height="50" align="center" vertical="center">Jumlah Masuk</th>
+        <tr>
+          
+          
+          
+          
+          
+          <th height="50" align="center" vertical="center">Jumlah</th>
           <th height="50" align="center" vertical="center">Satuan</th>
           <th height="50" align="center" vertical="center">Harga Satuan</th>
           <th height="50" align="center" vertical="center">Jumlah Harga</th>
-          <th height="50" align="center" vertical="center">Tanggal Keluar</th>
-          <th height="50" align="center" vertical="center">Diserahkan Kepada</th>
-          <th height="50" align="center" vertical="center">Jumlah Keluar</th>
+          <th height="50" align="center" vertical="center">Tanggal</th>
+          <th height="50" align="center" vertical="center">Nomor</th>
+          
+          <th height="50" align="center" vertical="center">Harga Satuan</th>
           <th height="50" align="center" vertical="center">Jumlah Harga</th>
-          <th height="50" align="center" vertical="center">Sisa</th>
-          <th height="50" align="center" vertical="center">Total Sisa</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -104,21 +118,23 @@ else {
         
           <!-- tampilkan data -->
           <tr>
+
                     <td width="50"   align="center"><?php echo $no++; ?></td>
-                    <td width="150"  align="center"><?php echo $data['id_transaksi']; ?></td>
-                    <td width="130"  align="center"><?php echo $data['nama_jenis']; ?></td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
-                    <td width="220"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
+                    <td width="220"><?php echo $data['nama_barang']; ?></td>
                     <td width="130"> </td>
                     <td width="100"  align="center"><?php echo date('Y', strtotime($data['tanggalm'])); ?></td>
                     <td width="200"  align="center"><?php echo $data['dari']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
                     <td width="60"   align="center"><?php echo $data['nama_satuan']; ?></td>
-                    <td width="100"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+                    <td width="150"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
-                    <td width="100"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
+                    <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
+                    <td> </td>
+                    <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
                     <td width="190"  align="center"><?php echo $data['serah']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
+                    <td width="130"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
             <?php
             // mengecek data "stok"
@@ -137,14 +153,17 @@ else {
         <?php } ?>
 
         <tr>
-        <th width="130" colspan="8"> JUMLAH </th>
+        <th width="130" colspan="6"> JUMLAH </th>
         <th align="center"><?=$total_jumlahm?></th>
         <th></th>
         <th></th>
         <th >Rp.<?=number_format($total_bayarm, 0,'','.')?></th>
         <th></th>
         <th></th>
+        <th></th>
+        <th></th>
         <th align="center"><?=$total_jumlahk?></th>
+        <th></th>
         <th >Rp.<?=number_format($total_bayark, 0,'','.')?></th>
         <th></th>
         <th >Rp.<?=number_format($jumlah, 0,'','.')?></th>
@@ -158,7 +177,7 @@ else {
     // fungsi header untuk mengirimkan raw data excel
     header("Content-type: application/vnd-ms-excel");
     // mendefinisikan nama file hasil ekspor "Laporan Stok Barang Minimum.xls"
-    header("Content-Disposition: attachment; filename=Laporan Stok Barang Minimum $jenis_barang.xls");
+    header("Content-Disposition: attachment; filename=Laporan Stok Barang $jenis_barang pakai habis.xls");
   ?>
     <!-- halaman HTML yang akan diexport ke excel -->
     <!-- judul tabel -->
@@ -172,34 +191,48 @@ else {
     <br>
     <br>
     <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-    <div style="text-align:left">TANGGAL    : <?php echo $tanggal_awal; ?> s.d <?php echo $tanggal_akhir; ?></div>
+    <div style="text-align:left">TAHUN ANGGARAN    : <?php echo date('Y', strtotime($tanggal_awal)); ?></div>
     <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
     <!-- tabel untuk menampilkan data dari database -->
     <table border="1">
       <thead>
       <tr>
-        <th width="130" colspan="3"> </th>
-        <th width="130" colspan="9"> Penerimaan </th>
-        <th width="130" colspan="5"> Pengeluaran </th>
+        <th height="50" align="center" vertical="center" rowspan="3">No.</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Tanggal Masuk</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Nama Barang</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Merk/Ukuran</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Tahun Pembuatan</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Dari</th>
+          <th width="130" colspan="6"> Penerimaan </th>
+          <th height="50" colspan="5">Pengeluaran</th>
+          <th height="50" align="center" vertical="center" rowspan="3">Ket</th>
+        </tr>
+      <tr>
+    
+        <th width="130" colspan="2"> Jumlah Satuan/Barang </th>
+        <th width="130" colspan="2"> Tgl/No. Kontrak/SP/SPK </th>
+        <th width="130" colspan="2"> Berita Acara Pemeriksaan </th>
+        <th height="50" align="center" vertical="center" rowspan="2">Tanggal Dikeluarkan / Penyerahan</th>
+        <th height="50" align="center" vertical="center" rowspan="2">Diserahkan Kepada</th>
+        <th height="50" align="center" vertical="center" rowspan="2">Jumlah Barang</th>
+        <th width="130" colspan="2"> Tgl/No.Surat Penyerahan </th>
       </tr>
-        <tr style="background-color:#6861ce;color:#fff">
-          <th height="50" align="center" vertical="center">No.</th>
-          <th height="50" align="center" vertical="center">ID Barang</th>
-          <th height="50" align="center" vertical="center">Jenis Barang</th>
-          <th height="50" align="center" vertical="center">Tanggal Masuk</th>
-          <th height="50" align="center" vertical="center">Nama Barang</th>
-          <th height="50" align="center" vertical="center">Merk/Ukuran</th>
-          <th height="50" align="center" vertical="center">Tahun Pembuatan</th>
-          <th height="50" align="center" vertical="center">Dari</th>
-          <th height="50" align="center" vertical="center">Jumlah Masuk</th>
+        <tr>
+          
+          
+          
+          
+          
+          <th height="50" align="center" vertical="center">Jumlah</th>
           <th height="50" align="center" vertical="center">Satuan</th>
           <th height="50" align="center" vertical="center">Harga Satuan</th>
           <th height="50" align="center" vertical="center">Jumlah Harga</th>
-          <th height="50" align="center" vertical="center">Tanggal Keluar</th>
-          <th height="50" align="center" vertical="center">Diserahkan Kepada</th>
-          <th height="50" align="center" vertical="center">Jumlah Keluar</th>
+          <th height="50" align="center" vertical="center">Tanggal</th>
+          <th height="50" align="center" vertical="center">Nomor</th>
+          
+          <th height="50" align="center" vertical="center">Harga Satuan</th>
           <th height="50" align="center" vertical="center">Jumlah Harga</th>
-          <th height="50" align="center" vertical="center">Sisa</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -227,35 +260,39 @@ else {
          ?>
           <!-- tampilkan data -->
           <tr>
-                    <td width="50"   align="center"><?php echo $no++; ?></td>
-                    <td width="150"  align="center"><?php echo $data['id_transaksi']; ?></td>
-                    <td width="130"  align="center"><?php echo $data['nama_jenis']; ?></td>
+          <td width="50"   align="center"><?php echo $no++; ?></td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
-                    <td width="220"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
+                    <td width="220"><?php echo $data['nama_barang']; ?></td>
                     <td width="130"> </td>
                     <td width="100"  align="center"><?php echo date('Y', strtotime($data['tanggalm'])); ?></td>
                     <td width="200"  align="center"><?php echo $data['dari']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
                     <td width="60"   align="center"><?php echo $data['nama_satuan']; ?></td>
-                    <td width="100"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+                    <td width="150"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
-                    <td width="100"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
+                    <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
+                    <td> </td>
+                    <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
                     <td width="190"  align="center"><?php echo $data['serah']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
+                    <td width="130"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
-                    <td width="100" align="center"><?php echo $data['stok']; ?></td>
+                    <td width="200"  align="center"> </td>
 
           </tr>
         <?php } ?>
         <tr>
-        <th width="130" colspan="8"> JUMLAH </th>
+        <th width="130" colspan="6"> JUMLAH </th>
         <th align="center"><?=$total_jumlahm?></th>
         <th></th>
         <th></th>
         <th >Rp.<?=number_format($total_bayarm, 0,'','.')?></th>
         <th></th>
         <th></th>
+        <th></th>
+        <th></th>
         <th align="center"><?=$total_jumlahk?></th>
+        <th></th>
         <th >Rp.<?=number_format($total_bayark, 0,'','.')?></th>
       </tr>
       </tbody>

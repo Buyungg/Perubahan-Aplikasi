@@ -22,7 +22,7 @@ else {
   // fungsi header untuk mengirimkan raw data excel
   header("Content-type: application/vnd-ms-excel");
   // mendefinisikan nama file hasil ekspor "Laporan Data Barang Masuk.xls"
-  header("Content-Disposition: attachment; filename=Laporan Data Barang Masuk.xls");
+  header("Content-Disposition: attachment; filename=Laporan Data Barang Masuk $jenis_barang.xls");
 ?>
   <!-- halaman HTML yang akan diexport ke excel -->
   <!-- judul tabel -->
@@ -38,22 +38,33 @@ else {
   <br>
   <br>
   <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">TANGGAL    : <?php echo $tanggal_awal; ?> s.d <?php echo $tanggal_akhir; ?></div>
+  <div style="text-align:left">TAHUN ANGGARAN    : <?php echo date('Y', strtotime($tanggal_awal)); ?></div>
   <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
 
   <!-- tabel untuk menampilkan data dari database -->
   <table border="1">
     <thead>
-      <tr style="background-color:#6861ce;color:#fff">
-        <th height="30" align="center" vertical="center">No.</th>
-        <th height="30" align="center" vertical="center">ID Transaksi</th>
+      <tr>
+      <th height="30" align="center" vertical="center" rowspan="2">No.</th>
+      <th height="30" align="center" vertical="center" rowspan="2">Jenis Barang Yang Dibeli</th>
+        <th colspan="2"> SPK/Perjanjian/Kontrak </th>
+        <th colspan="2"> DPA/SPM/Kwitansi</th>
+        <th colspan="5"> Jumlah </th>
+        <th height="30" align="center" vertical="center" rowspan="2">Dipergunakan Unit</th>
+      </tr>
+      <tr">
+        
+        
         <th height="30" align="center" vertical="center">Tanggal</th>
-        <th height="30" align="center" vertical="center">Barang</th>
-        <th height="30" align="center" vertical="center">Jenis</th>
-        <th height="30" align="center" vertical="center">Harga</th>
-        <th height="30" align="center" vertical="center">Jumlah Masuk</th>
+        <th height="30" align="center" vertical="center">Nomor</th>
+        <th height="30" align="center" vertical="center">Tanggal</th>
+        <th height="30" align="center" vertical="center">Nomor</th>
+        <th height="30" align="center" vertical="center">merk</th>
         <th height="30" align="center" vertical="center">Satuan</th>
-        <th height="30" align="center" vertical="center">Total Harga</th>
+        <th height="30" align="center" vertical="center">Banyak Barang</th>
+        <th height="30" align="center" vertical="center">Harga Satuan</th>
+        <th height="30" align="center" vertical="center">Jumlah Harga</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -67,7 +78,7 @@ else {
       $no = 1;
 
       // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-      $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.barang, a.jumlahm, a.hargam, a.totalm, b.nama_barang, c.nama_satuan, d.nama_jenis
+      $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.nomor, a.barang, a.jumlahm, a.hargam, a.totalm, b.nama_barang, c.nama_satuan, d.nama_jenis
                                       FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d
                                       ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis
                                       WHERE a.tanggalm BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
@@ -84,19 +95,22 @@ else {
         <!-- tampilkan data -->
         <tr>
           <td width="70" align="center"><?php echo $no++; ?></td>
-          <td width="150" align="center"><?php echo $data['id_transaksi']; ?></td>
-          <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
           <td width="200" align="center"><?php echo $data['nama_barang']; ?></td>
-          <td width="150" align="center"><?php echo $data['nama_jenis']; ?></td>
-          <td width="130" align="center">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
-          <td width="130" align="right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
+          <td width="130"> </td>
+          <td width="130"> </td>
+          <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
+          <td width="200" align="center"><?php echo $data['nomor']; ?></td>
+          <td width="130"> </td>
           <td width="130"><?php echo $data['nama_satuan']; ?></td>
+          <td width="130" align="right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
+          <td width="130" align="center">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
           <td width="130" align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
+          <td width="150"> </td>
           
         </tr>
       <?php } ?>
       <tr>
-        <th width="130" colspan="6"> Total</th>
+        <th width="130" colspan="8"> JUMLAH </th>
         <th align="right"><?=$total_jumlah?></th>
         <th></th>
         <th >Rp.<?=number_format($total_bayar, 0,'','.')?></th>

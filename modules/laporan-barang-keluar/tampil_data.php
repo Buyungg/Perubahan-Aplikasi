@@ -142,15 +142,6 @@ else { ?>
                 </div>
               </div>
 
-              <div class="col-lg-2 pr-0">
-                <div class="form-group pt-3">
-                  <!-- tombol cetak laporan -->
-                  <a href="modules/laporan-barang-keluar/cetak.php?tanggal_awal=<?php echo $tanggal_awal; ?>&tanggal_akhir=<?php echo $tanggal_akhir; ?>" target="_blank" class="btn btn-warning btn-round btn-block mt-4">
-                    <span class="btn-label"><i class="fa fa-print mr-2"></i></span> Cetak
-                  </a>
-                </div>
-              </div>
-
               <div class="col-lg-2 pl-0">
                 <div class="form-group pt-3">
                   <!-- tombol export laporan -->
@@ -215,7 +206,6 @@ else { ?>
                 <thead>
                   <tr>
                   <th class="text-center">No.</th>
-                  <th class="text-center">ID Transaksi</th>
                   <th class="text-center">Tanggal Masuk</th>
                   <th class="text-center">Barang</th>
                   <th class="text-center">Jenis</th>
@@ -248,10 +238,9 @@ else { ?>
                     <!-- tampilkan data -->
                     <tr>
                     <td width="50" class="text-center"><?php echo $no++; ?></td>
-                    <td width="90" class="text-center"><?php echo $data['id_transaksi']; ?></td>
                     <td width="70" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
-                    <td width="220"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
-                    <td width="60"><?php echo $data['nama_jenis']; ?></td>
+                    <td width="220"><?php echo $data['nama_barang']; ?></td>
+                    <td width="60" class="text-center"><?php echo $data['nama_jenis']; ?></td>
                     <td width="100" class="text-right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
                     <td width="70" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
                     <td width="100" class="text-right"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>

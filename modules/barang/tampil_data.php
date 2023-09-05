@@ -98,7 +98,6 @@ else {
             <thead>
               <tr>
                 <th class="text-center">No.</th>
-                <th class="text-center">ID Barang</th>
                 <th class="text-center">Nama Barang</th>
                 <th class="text-center">Stok</th>
                 <th class="text-center">Satuan</th>
@@ -121,7 +120,6 @@ else {
                 <!-- tampilkan data -->
                 <tr>
                   <td width="50" class="text-center"><?php echo $no++; ?></td>
-                  <td width="100" class="text-center"><?php echo $data['id_barang']; ?></td>
                   <td width="200"><?php echo $data['nama_barang']; ?></td>
                   <td width="80" class="text-right"><?php echo $data['stok']; ?></td>
                   <td width="100"><?php echo $data['nama_satuan']; ?></td>

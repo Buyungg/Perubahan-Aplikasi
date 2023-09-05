@@ -74,7 +74,6 @@ else {
             <thead>
               <tr>
                 <th class="text-center">No.</th>
-                <th class="text-center">ID Transaksi</th>
                 <th class="text-center">Tanggal</th>
                 <th class="text-center">Barang</th>
                 <th class="text-center">Jenis</th>
@@ -102,10 +101,9 @@ else {
                 <!-- tampilkan data -->
                 <tr>
                   <td width="30" class="text-center"><?php echo $no++; ?></td>
-                  <td width="90" class="text-center"><?php echo $data['id_transaksi']; ?></td>
                   <td width="100" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
                   <td width="140"><?php echo $data['nama_barang']; ?></td>
-                  <td width="100"><?php echo $data['nama_jenis']; ?></td>
+                  <td width="120" class="text-center"><?php echo $data['nama_jenis']; ?></td>
                   <td width="90" class="text-center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                   <td width="90" class="text-right"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
                   <td width="60" class="text-center"><?php echo $data['nama_satuan']; ?></td>

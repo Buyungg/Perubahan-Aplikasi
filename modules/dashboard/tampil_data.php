@@ -221,7 +221,7 @@ else {
     <div class="card">
       <div class="card-header">
         <!-- judul tabel -->
-        <div class="card-title"><i class="fas fa-info-circle mr-2"></i> Stok barang telah mencapai batas minimum</div>
+        <div class="card-title"><i class="fas fa-info-circle mr-2"></i> Stok barang telah dipakai habis</div>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -230,7 +230,6 @@ else {
             <thead>
               <tr>
                 <th class="text-center">No.</th>
-                <th class="text-center">ID Barang</th>
                 <th class="text-center">Nama Barang</th>
                 <th class="text-center">Jenis Barang</th>
                 <th class="text-center">Stok</th>
@@ -252,7 +251,6 @@ else {
                 <!-- tampilkan data -->
                 <tr>
                   <td width="50" class="text-center"><?php echo $no++; ?></td>
-                  <td width="80" class="text-center"><?php echo $data['id_barang']; ?></td>
                   <td width="200"><?php echo $data['nama_barang']; ?></td>
                   <td width="150"><?php echo $data['nama_jenis']; ?></td>
                   <td width="70" class="text-right"><span class="badge badge-warning"><?php echo $data['stok']; ?></span></td>

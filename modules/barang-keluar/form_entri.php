@@ -38,6 +38,14 @@ else { ?>
         <div class="card-body">
           <div class="row">
             <div class="col-md-7">
+            <div class="form-group">
+                <label>Tanggal <span class="text-danger">*</span></label>
+                <input type="text" name="tanggalk" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
+              </div>
+            </div>
+
+            <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <?php
                 // membuat "id_transaksi"
@@ -64,17 +72,8 @@ else { ?>
                 // menambahkan karakter "TK-" diawal dan karakter "0" disebelah kiri nomor urut
                 $id_transaksi = "TK-" . str_pad($nomor_urut, 7, "0", STR_PAD_LEFT);
                 ?>
-                <label>ID Transaksi <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
-                <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>" readonly>
-              </div>
-            </div>
-
-            <div class="col-md-5 ml-auto">
-              <div class="form-group">
-                <label>Tanggal <span class="text-danger">*</span></label>
-                <input type="text" name="tanggalk" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
-                <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
+                <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>" hidden>
               </div>
             </div>
           </div>
@@ -94,7 +93,7 @@ else { ?>
                   // ambil data hasil query
                   while ($data_barang = mysqli_fetch_assoc($query_barang)) {
                     // tampilkan data
-                    echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                    echo "<option value='$data_barang[id_barang]'>$data_barang[nama_barang]</option>";
                   }
                   ?>
                 </select>

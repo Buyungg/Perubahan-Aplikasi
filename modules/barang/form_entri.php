@@ -38,6 +38,13 @@ else { ?>
         <div class="card-body">
           <div class="row">
             <div class="col-md-7">
+
+              <div class="form-group">
+                <label>Nama Barang <span class="text-danger">*</span></label>
+                <input type="text" name="nama_barang" class="form-control" autocomplete="off" required>
+                <div class="invalid-feedback">Nama barang tidak boleh kosong.</div>
+              </div>
+
               <div class="form-group">
                 <?php
                 // membuat "id_barang"
@@ -64,15 +71,8 @@ else { ?>
                 // menambahkan karakter "B" diawal dan karakter "0" disebelah kiri nomor urut
                 $id_barang = "B" . str_pad($nomor_urut, 4, "0", STR_PAD_LEFT);
                 ?>
-                <label>ID Barang <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_barang" -->
-                <input type="text" name="id_barang" class="form-control" value="<?php echo $id_barang; ?>" readonly>
-              </div>
-
-              <div class="form-group">
-                <label>Nama Barang <span class="text-danger">*</span></label>
-                <input type="text" name="nama_barang" class="form-control" autocomplete="off" required>
-                <div class="invalid-feedback">Nama barang tidak boleh kosong.</div>
+                <input type="text" name="id_barang" class="form-control" value="<?php echo $id_barang; ?>" hidden>
               </div>
 
               <div class="form-group">

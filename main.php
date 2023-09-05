@@ -90,7 +90,7 @@ else { ?>
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="javascript:void(0)" aria-expanded="false">
                   <div class="avatar-sm-top mt-1">
                     
-                    <i class="fas fa-angle-down avatar-title"></i>
+                    <i class="fas fa-user avatar-title"></i>
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated fadeIn">

@@ -26,7 +26,7 @@ else {
   <!-- judul tabel -->
   <center>
     <h4>
-      LAPORAN DATA BARANG MASUK<br>
+      LAPORAN DATA PERSEDIAAN BARANG <?php echo strtoupper($jenis_barang); ?> <br>
     </h4>
   </center>
 
@@ -42,25 +42,28 @@ else {
   <table border="1">
     <thead>
     <tr>
-        <th colspan="3"> No/Tanggal Surat Dasar </th>
-        <th> </th>
+        <th height="30" align="center" vertical="center" rowspan="2" >No.</th>
+        <th colspan="2"> No/Tanggal Surat Dasar </th>
+        <th height="30" align="center" vertical="center" rowspan="2" >Nama Barang</th>
         <th colspan="4"> Barang-Barang </th>
-        <th colspan="4"> Jumlah Harga Barang yang Diterima/Dikeluarkan/Sisa </th>
+        <th height="30" align="center" vertical="center" rowspan="2" >Harga Satuan</th>
+        <th colspan="3"> Jumlah Harga Barang yang Diterima/Dikeluarkan/Sisa </th>
+        <th height="30" align="center" vertical="center" rowspan="2" >Keterangan</th>
       </tr>
-      <tr style="background-color:#6861ce;color:#fff">
-          <th height="30" align="center" vertical="center">No.</th>
-          <th height="30" align="center" vertical="center">Tanggal Masuk</th>
-          <th height="30" align="center" vertical="center">Tanggal Keluar</th>
-          <th height="30" align="center" vertical="center">Nama Barang</th>
+      <tr>
+          
+          <th height="30" align="center" vertical="center">Penerimaan</th>
+          <th height="30" align="center" vertical="center">Pengeluaran</th>
+
           <th height="30" align="center" vertical="center">Satuan</th>
-          <th height="30" align="center" vertical="center">Jumlah Masuk</th>
-          <th height="30" align="center" vertical="center">Jumlah Keluar</th>
+          <th height="30" align="center" vertical="center">Masuk/Terima</th>
+          <th height="30" align="center" vertical="center">Keluar/Penyerahan</th>
           <th height="30" align="center" vertical="center">Sisa</th>
-          <th height="30" align="center" vertical="center">Harga Satuan</th>
+
           <th height="30" align="center" vertical="center">Berjumlah</th>
           <th height="30" align="center" vertical="center">Berkurang</th>
           <th height="30" align="center" vertical="center">Sisa</th>
-          <th height="30" align="center" vertical="center">Keterangan</th>
+          
       </tr>
     </thead>
     <tbody>
@@ -100,15 +103,15 @@ else {
         <td width="50"  align="center"><?php echo $no++; ?></td>
         <td width="130"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
         <td width="130"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
-        <td width="180"><?php echo $data['id_barang']; ?> - <?php echo $data['nama_barang']; ?></td>
+        <td width="180"><?php echo $data['nama_barang']; ?></td>
         <td width="90"  align="center"><?php echo $data['nama_satuan']; ?></td>
         <td width="130" align="center"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
-        <td width="130"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>   
+        <td width="155"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>   
         <td width="100" align="center"><?php echo $data['stok']; ?></td>
-        <td width="130" align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
-        <td width="130" align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
-        <td width="130" align="center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
-        <td width="130" align="center">Rp.<?=number_format($selisih, 0,'','.')?></td>
+        <td width="130" align="left">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+        <td width="150" align="left">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
+        <td width="150" align="left">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
+        <td width="150" align="left">Rp.<?=number_format($selisih, 0,'','.')?></td>
         <td width="130" > </td>
 
         </tr>
@@ -119,9 +122,9 @@ else {
         <th align="center"><?=$total_jumlahk?></th>
         <th align="center"><?=$total_stok?></th>
         <th></th>
-        <th >Rp.<?=number_format($total_bayar, 0,'','.')?></th>
-        <th >Rp.<?=number_format($total_bayark, 0,'','.')?></th>
-        <th >Rp.<?=number_format($total_selisih, 0,'','.')?></th>
+        <th align="left">Rp.<?=number_format($total_bayar, 0,'','.')?></th>
+        <th align="left">Rp.<?=number_format($total_bayark, 0,'','.')?></th>
+        <th align="left">Rp.<?=number_format($total_selisih, 0,'','.')?></th>
       </tr>
     </tbody>
   </table>
