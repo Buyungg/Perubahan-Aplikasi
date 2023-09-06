@@ -76,9 +76,9 @@ else {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_entri.php";
   }
-   // jika module yang dipilih "form_ubah_satuan" dan hak akses bukan "Kepala Gudang"
-   elseif ($_GET['module'] == 'form_ubah_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
-    // panggil file form ubah satuan
+  // jika module yang dipilih "form_ubah_barang_masuk" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'form_ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form entri barang masuk
     include "modules/barang-masuk/form_ubah.php";
   }
   // jika module yang dipilih "barang_keluar" dan hak akses bukan "Kepala Gudang"
@@ -90,6 +90,11 @@ else {
   elseif ($_GET['module'] == 'form_entri_barang_keluar' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
     // panggil file form entri barang keluar
     include "modules/barang-keluar/form_entri.php";
+  }
+  // jika module yang dipilih "form_ubah_barang_keluar" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'form_ubah_barang_keluar' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form entri barang keluar
+    include "modules/barang-keluar/form_ubah.php";
   }
   // jika module yang dipilih "laporan_stok"
   elseif ($_GET['module'] == 'laporan_stok') {

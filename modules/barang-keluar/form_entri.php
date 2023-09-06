@@ -170,7 +170,7 @@ else { ?>
             // tampilkan data
             $('#data_stok').val(result.stok);
             $('#data_jenis').val(result.nama_jenis);
-            $('#data_harga').val(result.harga);
+            $('#data_harga').val(result.hargam);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
             $('#jumlah').focus();

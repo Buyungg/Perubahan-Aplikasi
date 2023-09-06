@@ -94,7 +94,7 @@ else {
          $tanggal_awal  = date('Y-m-d', strtotime($tanggal_awal));
          $tanggal_akhir = date('Y-m-d', strtotime($tanggal_akhir));
         // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan"
-        $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalk, a.barang, a.jumlahk, a.serah, a.totalk, b.nama_barang, b.harga, b.stok, b.stok_minimum, c.nama_satuan, d.nama_jenis , e.dari, e.tanggalm, e.jumlahm, e.totalm
+        $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalk, a.barang, a.jumlahk, a.hargak, a.serah, a.totalk, b.nama_barang, b.stok, b.stok_minimum, c.nama_satuan, d.nama_jenis , e.dari, e.tanggalm, e.jumlahm, e.totalm
                                         FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d INNER JOIN tbl_barang_masuk as e
                                         ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis AND b.id_barang=e.barang
                                         WHERE a.tanggalk BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
@@ -127,14 +127,14 @@ else {
                     <td width="200"  align="center"><?php echo $data['dari']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
                     <td width="60"   align="center"><?php echo $data['nama_satuan']; ?></td>
-                    <td width="150"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+                    <td width="150"  align="center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
                     <td> </td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
                     <td width="190"  align="center"><?php echo $data['serah']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
-                    <td width="130"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+                    <td width="130"  align="center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
             <?php
             // mengecek data "stok"
@@ -240,7 +240,7 @@ else {
          $tanggal_awal  = date('Y-m-d', strtotime($tanggal_awal));
          $tanggal_akhir = date('Y-m-d', strtotime($tanggal_akhir));
         // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "stok"
-        $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalk, a.barang, a.jumlahk, a.serah, a.totalk, b.nama_barang, b.harga, b.stok, b.stok_minimum, c.nama_satuan, d.nama_jenis , e.dari, e.tanggalm, e.jumlahm, e.totalm
+        $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalk, a.barang, a.jumlahk, a.hargak, a.serah, a.totalk, b.nama_barang, b.stok, b.stok_minimum, c.nama_satuan, d.nama_jenis , e.dari, e.tanggalm, e.jumlahm, e.totalm
                                         FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d INNER JOIN tbl_barang_masuk as e
                                         ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis AND b.id_barang=e.barang
                                         WHERE a.tanggalk BETWEEN '$tanggal_awal' AND '$tanggal_akhir'AND b.stok<=b.stok_minimum AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
@@ -268,14 +268,14 @@ else {
                     <td width="200"  align="center"><?php echo $data['dari']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
                     <td width="60"   align="center"><?php echo $data['nama_satuan']; ?></td>
-                    <td width="150"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+                    <td width="150"  align="center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
                     <td> </td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
                     <td width="190"  align="center"><?php echo $data['serah']; ?></td>
                     <td width="100"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
-                    <td width="130"  align="center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+                    <td width="130"  align="center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
                     <td width="200"  align="center"> </td>
 

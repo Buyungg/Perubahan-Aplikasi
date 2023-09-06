@@ -101,7 +101,6 @@ else {
                 <th class="text-center">Nama Barang</th>
                 <th class="text-center">Stok</th>
                 <th class="text-center">Satuan</th>
-                <th class="text-center">Harga Satuan</th>
                 <th class="text-center">Aksi</th>
               </tr>
             </thead>
@@ -110,7 +109,7 @@ else {
               // variabel untuk nomor urut tabel
               $no = 1;
               // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan"
-              $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok, a.satuan, a.harga, b.nama_satuan
+              $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok, a.satuan, b.nama_satuan
                                               FROM tbl_barang as a INNER JOIN tbl_satuan as b 
                                               ON a.satuan=b.id_satuan 
                                               ORDER BY a.id_barang DESC")
@@ -123,7 +122,6 @@ else {
                   <td width="200"><?php echo $data['nama_barang']; ?></td>
                   <td width="80" class="text-right"><?php echo $data['stok']; ?></td>
                   <td width="100"><?php echo $data['nama_satuan']; ?></td>
-                  <td width="70" class="text-center">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
                   <td width="100" class="text-center">
                     <div>
                       <!-- tombol detail data -->

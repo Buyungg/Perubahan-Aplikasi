@@ -135,7 +135,7 @@ else { ?>
 
               <div class="form-group">
                 <label> Harga <span class="text-danger">*</span></label>
-                <input type="text" id="data_harga" name="hargam" class="form-control" readonly>
+                <input type="text" name="hargam" class="form-control" required>
               </div>
 
               <div class="form-group">
@@ -180,7 +180,6 @@ else { ?>
             // tampilkan data
             $('#data_stok').val(result.stok);
             $('#data_jenis').val( result.nama_jenis);
-            $('#data_harga').val(result.harga);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
             $('#jumlah').focus();

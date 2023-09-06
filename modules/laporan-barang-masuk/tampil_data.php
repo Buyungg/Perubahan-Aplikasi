@@ -212,7 +212,7 @@ else { ?>
                   <tr>
                     <td width="50" class="text-center"><?php echo $no++; ?></td>
                     <td width="90" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
-                    <td width="150"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
+                    <td width="150"><?php echo $data['nama_barang']; ?></td>
                     <td width="110" class="text-left"><?php echo $data['nama_jenis']; ?></td>
                     <td width="90" class="text-center"><?php echo $data['dari']; ?></td>
                     <td width="60" class="text-center">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>

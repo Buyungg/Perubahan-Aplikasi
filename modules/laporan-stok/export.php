@@ -73,7 +73,7 @@ else {
       $no = 1;
 
       // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-      $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.harga, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan, d.tanggalm, d.jumlahm, d.totalm, e.tanggalk, e.jumlahk, e.totalk
+      $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan, d.tanggalm, d.jumlahm, d.hargam, d.totalm, e.tanggalk, e.jumlahk, e.totalk
                                       FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c INNER JOIN tbl_barang_masuk as d INNER JOIN tbl_barang_keluar as e
                                       ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan AND d.barang=a.id_barang AND e.barang=a.id_barang
                                       WHERE LOWER(b.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_barang ASC")
@@ -108,7 +108,7 @@ else {
         <td width="130" align="center"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
         <td width="155"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>   
         <td width="100" align="center"><?php echo $data['stok']; ?></td>
-        <td width="130" align="left">Rp. <?php echo number_format($data['harga'], 0, '', '.'); ?></td>
+        <td width="130" align="left">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
         <td width="150" align="left">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
         <td width="150" align="left">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
         <td width="150" align="left">Rp.<?=number_format($selisih, 0,'','.')?></td>

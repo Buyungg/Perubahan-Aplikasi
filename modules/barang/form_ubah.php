@@ -13,7 +13,7 @@ else {
     $id_barang = $_GET['id'];
 
     // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "id_barang"
-    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, a.harga, b.nama_jenis, c.nama_satuan
+    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan
                                     FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c 
                                     ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan 
                                     WHERE a.id_barang='$id_barang'")
@@ -110,12 +110,6 @@ else {
                 </select>
                 <div class="invalid-feedback">Satuan tidak boleh kosong.</div>
                 </div>
-
-                <div class="form-group">
-                <label>harga Satuan<span class="text-danger">*</span></label>
-                <input type="text" name="harga" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" value="<?php echo $data['harga']; ?>" required>
-                <div class="invalid-feedback">Harga tidak boleh kosong.</div>
-              </div>
 
             </div>
           </div>

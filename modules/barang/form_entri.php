@@ -122,12 +122,6 @@ else { ?>
                 <div class="invalid-feedback">Satuan tidak boleh kosong.</div>
               </div>
 
-              <div class="form-group">
-                <label>Harga Satuan<span class="text-danger">*</span></label>
-                <input type="text" name="harga" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
-                <div class="invalid-feedback">Harga tidak boleh kosong.</div>
-              </div>
-
             </div>
           </div>
         </div>

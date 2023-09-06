@@ -60,11 +60,6 @@ else {
           </div>
 
           <div class="form-group col-lg-5">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Kosongkan password jika tidak diubah" autocomplete="off">
-          </div>
-
-          <div class="form-group col-lg-5">
             <label>Hak Akses <span class="text-danger">*</span></label>
             <select name="hak_akses" class="form-control chosen-select" autocomplete="off" required>
               <option value="<?php echo $data['hak_akses']; ?>"><?php echo $data['hak_akses']; ?></option>
@@ -75,6 +70,13 @@ else {
             </select>
             <div class="invalid-feedback">Hak akses tidak boleh kosong.</div>
           </div>
+
+          <div class="form-group col-lg-5">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Kosongkan password jika tidak diubah" autocomplete="off">
+          </div>
+
+         
         </div>
         <div class="card-action">
           <!-- tombol simpan data -->

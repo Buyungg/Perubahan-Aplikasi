@@ -91,7 +91,7 @@ else {
               // variabel untuk nomor urut tabel
               $no = 1;
               // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", "tbl_jenis" dan tabel "tbl_satuan"
-              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.barang, a.nomor, a.dari, a.hargam, a.jumlahm, a.totalm, b.nama_barang, c.nama_satuan, d.nama_jenis
+              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.barang, a.nomor, a.dari, a.hargam, a.jumlahm, a.totalm, b.nama_barang , c.nama_satuan, d.nama_jenis
                                               FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d
                                               ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND  b.jenis=d.id_jenis
                                               ORDER BY a.id_transaksi DESC")
@@ -112,8 +112,12 @@ else {
                   <td width="110" class="text-center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
                   <td width="120" class="text-center">
                     <div>
+                      <!-- tombol ubah data -->
+                      <a href="?module=form_ubah_barang_masuk&id=<?php echo $data['id_transaksi']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                        <i class="fas fa-pencil-alt fa-sm"></i>
+                      </a>
                       <!-- tombol hapus data -->
-                      <a href="modules/barang-masuk/proses_hapus.php?id=<?php echo $data['id_transaksi']; ?>" onclick="return confirm('Anda yakin ingin menghapus data barang masuk <?php echo $data['id_transaksi']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                      <a href="modules/barang-masuk/proses_hapus.php?id=<?php echo $data['id_transaksi']; ?>" onclick="return confirm('Anda yakin ingin menghapus data barang masuk <?php echo $data['nama_barang']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
                         <i class="fas fa-trash fa-sm"></i>
                       </a>
                     </div>

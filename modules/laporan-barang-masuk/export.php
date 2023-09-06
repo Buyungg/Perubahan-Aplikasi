@@ -86,7 +86,7 @@ else {
                                   
       // ambil data hasil query
       $total_jumlah = 0;
-      $total_bayar = 0;
+      $total_bayar = 0; 
       while ($data = mysqli_fetch_assoc($query)) { 
         $total_jumlah += $data['jumlahm'];
         $total_bayar += $data['totalm'];

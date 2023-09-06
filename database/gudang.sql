@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2023 at 08:04 AM
+-- Generation Time: Sep 06, 2023 at 11:50 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.29
 
@@ -33,18 +33,17 @@ CREATE TABLE `tbl_barang` (
   `jenis` int(11) NOT NULL,
   `stok_minimum` int(11) NOT NULL,
   `stok` int(11) NOT NULL DEFAULT 0,
-  `satuan` int(11) NOT NULL,
-  `harga` int(11) NOT NULL DEFAULT 0
+  `satuan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbl_barang`
 --
 
-INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`, `harga`) VALUES
-('B0002', 'Spidol', 1, 0, 50, 3, 5000),
-('B0003', 'Kertas HVS', 1, 0, 0, 1, 50000),
-('B0004', 'Mouse', 2, 0, 0, 2, 70000);
+INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`) VALUES
+('B0002', 'Spidol', 1, 0, 100, 3),
+('B0003', 'Kertas HVS', 1, 0, 0, 1),
+('B0005', 'Stapless', 1, 0, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -67,9 +66,9 @@ CREATE TABLE `tbl_barang_keluar` (
 --
 
 INSERT INTO `tbl_barang_keluar` (`id_transaksi`, `tanggalk`, `barang`, `hargak`, `jumlahk`, `totalk`, `serah`) VALUES
-('TK-0000004', '2023-09-02', 'B0004', 70000, 25, 1750000, 'Administrasi'),
-('TK-0000005', '2023-09-03', 'B0002', 5000, 50, 250000, 'Staff'),
-('TK-0000006', '2023-09-03', 'B0003', 50000, 20, 1000000, 'Pencetak');
+('TK-0000008', '2023-09-06', 'B0002', 8000, 25, 200000, 'Pencetak'),
+('TK-0000009', '2023-09-06', 'B0003', 45000, 25, 1125000, 'Pencetak'),
+('TK-0000010', '2023-09-06', 'B0005', 17500, 20, 350000, 'Administrasi');
 
 --
 -- Triggers `tbl_barang_keluar`
@@ -99,6 +98,7 @@ CREATE TABLE `tbl_barang_masuk` (
   `id_transaksi` varchar(10) NOT NULL,
   `tanggalm` date NOT NULL,
   `barang` varchar(5) NOT NULL,
+  `nomor` varchar(255) NOT NULL DEFAULT '',
   `hargam` int(11) NOT NULL DEFAULT 0,
   `jumlahm` int(11) DEFAULT NULL,
   `dari` varchar(255) NOT NULL DEFAULT '',
@@ -109,10 +109,10 @@ CREATE TABLE `tbl_barang_masuk` (
 -- Dumping data for table `tbl_barang_masuk`
 --
 
-INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggalm`, `barang`, `hargam`, `jumlahm`, `dari`, `totalm`) VALUES
-('TM-0000001', '2023-09-01', 'B0003', 50000, 20, 'Bendahara Pengeluaran', 1000000),
-('TM-0000003', '2023-09-01', 'B0002', 5000, 100, 'Bendahara Pengeluaran', 500000),
-('TM-0000004', '2023-09-02', 'B0004', 70000, 25, 'Bendahara Pengeluaran', 1750000);
+INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggalm`, `barang`, `nomor`, `hargam`, `jumlahm`, `dari`, `totalm`) VALUES
+('TM-0000001', '2023-09-01', 'B0003', '03/02.046/Capil/2023', 45000, 25, 'Bendahara Pengeluaran', 1125000),
+('TM-0000003', '2023-09-01', 'B0002', '09/01.036/Capil/2023', 8000, 125, 'Bendahara Pengeluaran', 1000000),
+('TM-0000006', '2023-09-04', 'B0005', '08/01.026/Capil/2023', 17500, 25, 'Bendahara Pengeluaran', 437500);
 
 --
 -- Triggers `tbl_barang_masuk`
@@ -128,6 +128,14 @@ DELIMITER $$
 CREATE TRIGGER `stok_masuk` AFTER INSERT ON `tbl_barang_masuk` FOR EACH ROW BEGIN
 UPDATE tbl_barang SET stok=stok+NEW.jumlahm
 WHERE id_barang=NEW.barang;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update` AFTER UPDATE ON `tbl_barang_masuk` FOR EACH ROW BEGIN
+UPDATE tbl_barang_masuk b INNER JOIN tbl_barang_keluar k
+ON b.barang=k.barang
+SET k.hargak=b.hargam, k.totalk=b.hargam*k.jumlahk;
 END
 $$
 DELIMITER ;
@@ -170,7 +178,8 @@ INSERT INTO `tbl_satuan` (`id_satuan`, `nama_satuan`) VALUES
 (1, 'Rim'),
 (2, 'Unit'),
 (3, 'Buah'),
-(4, 'Lembar');
+(4, 'Lembar'),
+(5, 'Dus');
 
 -- --------------------------------------------------------
 
@@ -191,7 +200,8 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
-(1, 'Admin', 'admin', '$2y$12$Yi/I5f1jPoQNQnh6lWoVfuz.RtZ3OHcKN6PU.I62P0fYK1tJ7xMRi', 'Administrator');
+(1, 'Admin', 'admin', '$2y$12$Yi/I5f1jPoQNQnh6lWoVfuz.RtZ3OHcKN6PU.I62P0fYK1tJ7xMRi', 'Administrator'),
+(4, 'gembeng', 'gembeng', '$2y$12$DzggT3w5t4gZ3LEhEYKQ.ursgOYRdZEEcb2yOX46zzGvrfcp8oUU6', 'Admin Gudang');
 
 --
 -- Indexes for dumped tables
@@ -247,13 +257,13 @@ ALTER TABLE `tbl_jenis`
 -- AUTO_INCREMENT for table `tbl_satuan`
 --
 ALTER TABLE `tbl_satuan`
-  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

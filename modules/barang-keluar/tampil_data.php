@@ -103,15 +103,19 @@ else {
                   <td width="30" class="text-center"><?php echo $no++; ?></td>
                   <td width="100" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggalk'])); ?></td>
                   <td width="140"><?php echo $data['nama_barang']; ?></td>
-                  <td width="120" class="text-center"><?php echo $data['nama_jenis']; ?></td>
+                  <td width="10" class="text-center"><?php echo $data['nama_jenis']; ?></td>
                   <td width="90" class="text-center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                   <td width="90" class="text-right"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
                   <td width="60" class="text-center"><?php echo $data['nama_satuan']; ?></td>
                   <td width="110" class="text-center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
                   <td width="100"><?php echo $data['serah']; ?></td>
                   <td width="50" class="text-right"><?php echo $data['stok']; ?></td>
-                  <td width="50" class="text-center">
+                  <td width="70" class="text-center">
                     <div>
+                      <!-- tombol ubah data -->
+                      <a href="?module=form_ubah_barang_keluar&id=<?php echo $data['id_transaksi']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                        <i class="fas fa-pencil-alt fa-sm"></i>
+                      </a>
                       <!-- tombol hapus data -->
                       <a href="modules/barang-keluar/proses_hapus.php?id=<?php echo $data['id_transaksi']; ?>" onclick="return confirm('Anda yakin ingin menghapus data barang keluar <?php echo $data['id_transaksi']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
                         <i class="fas fa-trash fa-sm"></i>
