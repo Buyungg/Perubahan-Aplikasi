@@ -93,7 +93,7 @@ else {
   }
   // jika module yang dipilih "form_ubah_barang_keluar" dan hak akses bukan "Kepala Gudang"
   elseif ($_GET['module'] == 'form_ubah_barang_keluar' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
-    // panggil file form entri barang keluar
+    // panggil file form ubah barang keluar
     include "modules/barang-keluar/form_ubah.php";
   }
   // jika module yang dipilih "laporan_stok"

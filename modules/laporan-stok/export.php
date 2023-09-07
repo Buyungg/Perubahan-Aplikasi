@@ -20,24 +20,55 @@ else {
   // fungsi header untuk mengirimkan raw data excel
   header("Content-type: application/vnd-ms-excel");
   // mendefinisikan nama file hasil ekspor "Laporan Data Barang Masuk.xls"
-  header("Content-Disposition: attachment; filename=Laporan Data Persediaan Barang $jenis_barang .xls");
+  header("Content-Disposition: attachment; filename=Kartu Persediaan Barang $jenis_barang .xls");
 ?>
   <!-- halaman HTML yang akan diexport ke excel -->
   <!-- judul tabel -->
   <center>
     <h4>
-      LAPORAN DATA PERSEDIAAN BARANG <?php echo strtoupper($jenis_barang); ?> <br>
+      KARTU PERSEDIAAN BARANG 
+      <br>
     </h4>
   </center>
 
-  <div style="text-align:left">OPD        : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">KABUPATEN  : NGAWI</div>
-  <div style="text-align:left">PROVINSI   : JAWA TIMUR</div>
+  <!-- tabel Penjelasan -->
+  <table>
+    <thead>
+      <tr>
+        <td> </td>
+        <td> ODP</td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> KABUPATEN </td>
+        <td align="right">:</td>
+        <td colspan="2"> NGAWI </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> PROVINSI</td>
+        <td align="right">:</td>
+        <td colspan="2"> JAWA TIMUR </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td> </td>
+        <td> GUDANG </td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> JENIS</td>
+        <td align="right">:</td>
+        <td colspan="2"> <?php echo $jenis_barang; ?> </td>
+      </tr>
+    </thead>
+  </table>
   <br>
-  <br>
-  <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
-
   <!-- tabel untuk menampilkan data dari database -->
   <table border="1">
     <thead>
@@ -106,8 +137,8 @@ else {
         <td width="180"><?php echo $data['nama_barang']; ?></td>
         <td width="90"  align="center"><?php echo $data['nama_satuan']; ?></td>
         <td width="130" align="center"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
-        <td width="155"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>   
-        <td width="100" align="center"><?php echo $data['stok']; ?></td>
+        <td width="155" align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>   
+        <td width="150" align="center"><?php echo $data['stok']; ?></td>
         <td width="130" align="left">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
         <td width="150" align="left">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
         <td width="150" align="left">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
@@ -117,7 +148,8 @@ else {
         </tr>
       <?php } ?>
       <tr>
-        <th width="130" colspan="5"> Total</th>
+        <th width="130" colspan="4"> Total</th>
+        <th> </th>
         <th align="center"><?=$total_jumlah?></th>
         <th align="center"><?=$total_jumlahk?></th>
         <th align="center"><?=$total_stok?></th>
@@ -129,5 +161,49 @@ else {
     </tbody>
   </table>
   <br>
-  <div style="text-align:right">............, <?php echo tanggal_indo(date('Y-m-d')); ?></div>
+
+  <!-- format ttd -->
+  <table>
+    <thead>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> PENGGUNA BARANG </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+        <td></td>
+        <td colspan="5" align="center"> PEJABAT PENATAUSAHAAN PENGGUNA BARANG </td>
+        <td colspan="3" align="center"> Ngawi, <?php echo tanggal_indo(date('Y-m-d')); ?> </td>
+      </tr>
+      <tr> 
+        <td> </td>
+        <td colspan="3" align="center"> KABUPATEN NGAWI </td>
+        <td> </td>
+        <td colspan="5"> </td>
+        <td colspan="3" align="center"> PENGURUS BARANG </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td> </td>
+        <th colspan="3" align="center"> <u> NOOR HASAN MUNTAHA, S.T, M.M </u> </th>
+        <th> </th>
+        <th colspan="5" align="center"> <u> TUTIK RAHAYU SRI UTAMI, SH </u> </th>
+        <th colspan="3" align="center"> <u> HARI PURNAWAN </u> </th>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> Pembina Tk. I</td>
+        <td> </td>
+        <td colspan="5" align="center"> NIP.1968052 199103 2 011</td>
+        <td colspan="3" align="center"> NIP.19790719 200901 1 005 </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> NIP.19690927 199803 1 007</td>
+      </tr>
+    </thead>
+  </table>
 <?php } ?>

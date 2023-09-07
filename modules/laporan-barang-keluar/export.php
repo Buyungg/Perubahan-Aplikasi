@@ -36,16 +36,51 @@ else {
     <center>
       <h4>LAPORAN STOK SELURUH BARANG KELUAR</h4>
     </center>
-
-  <div style="text-align:left">OPD        : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">KABUPATEN  : NGAWI</div>
-  <div style="text-align:left">PROVINSI   : JAWA TIMUR</div>
-  <br>
-  <br>
-  <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">TAHUN ANGGARAN    : <?php echo date('Y', strtotime($tanggal_awal)); ?></div>
-  <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
-
+    <br>
+  <!-- tabel Penjelasan -->
+  <table>
+    <thead>
+      <tr>
+        <td> </td>
+        <td> ODP</td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> KABUPATEN </td>
+        <td align="right">:</td>
+        <td colspan="2"> NGAWI </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> PROVINSI</td>
+        <td align="right">:</td>
+        <td colspan="2"> JAWA TIMUR </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td> </td>
+        <td> GUDANG </td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> TAHUN ANGGARAN </td>
+        <td align="right">:</td>
+        <td align="left"> <?php echo date('Y', strtotime($tanggal_awal)); ?> </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> JENIS</td>
+        <td align="right">:</td>
+        <td colspan="2"> <?php echo $jenis_barang; ?> </td>
+      </tr>
+    </thead>
+  </table>
+    <br>
     <!-- tabel untuk menampilkan data dari database -->
     <table border="1">
       <thead>
@@ -141,7 +176,7 @@ else {
             // jika data stok minim
             if ($data['stok'] <= $data['stok_minimum']) { ?>
               <!-- tampilkan data dengan warna background -->
-              <td style="background-color:#ffad46;color:#fff" width="100" align="center"><?php echo $data['stok']; ?></td>
+              <td width="100" align="center"><?php echo $data['stok']; ?></td>
             <?php }
             // jika data stok tidak minim
             else { ?>
@@ -185,19 +220,56 @@ else {
       <h4>LAPORAN STOK BARANG YANG PAKAI HABIS</h4>
     </center>
 
-    <div style="text-align:left">OPD        : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-    <div style="text-align:left">KABUPATEN  : NGAWI</div>
-    <div style="text-align:left">PROVINSI   : JAWA TIMUR</div>
     <br>
+  <!-- tabel Penjelasan -->
+  <table>
+    <thead>
+      <tr>
+        <td> </td>
+        <td> ODP</td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> KABUPATEN </td>
+        <td align="right">:</td>
+        <td colspan="2"> NGAWI </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> PROVINSI</td>
+        <td align="right">:</td>
+        <td colspan="2"> JAWA TIMUR </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td> </td>
+        <td> GUDANG </td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> TAHUN ANGGARAN </td>
+        <td align="right">:</td>
+        <td align="left"> <?php echo date('Y', strtotime($tanggal_awal)); ?> </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> JENIS</td>
+        <td align="right">:</td>
+        <td colspan="2"> <?php echo $jenis_barang; ?> </td>
+      </tr>
+    </thead>
+  </table>
     <br>
-    <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-    <div style="text-align:left">TAHUN ANGGARAN    : <?php echo date('Y', strtotime($tanggal_awal)); ?></div>
-    <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
     <!-- tabel untuk menampilkan data dari database -->
     <table border="1">
       <thead>
       <tr>
-        <th height="50" align="center" vertical="center" rowspan="3">No.</th>
+          <th height="50" align="center" vertical="center" rowspan="3">No.</th>
           <th height="50" align="center" vertical="center" rowspan="3">Tanggal Masuk</th>
           <th height="50" align="center" vertical="center" rowspan="3">Nama Barang</th>
           <th height="50" align="center" vertical="center" rowspan="3">Merk/Ukuran</th>
@@ -205,7 +277,7 @@ else {
           <th height="50" align="center" vertical="center" rowspan="3">Dari</th>
           <th width="130" colspan="6"> Penerimaan </th>
           <th height="50" colspan="5">Pengeluaran</th>
-          <th height="50" align="center" vertical="center" rowspan="3">Ket</th>
+          <th width="180" align="center" vertical="center" rowspan="3">Keterangan</th>
         </tr>
       <tr>
     
@@ -260,7 +332,7 @@ else {
          ?>
           <!-- tampilkan data -->
           <tr>
-          <td width="50"   align="center"><?php echo $no++; ?></td>
+                    <td width="50" align="center"><?php echo $no++; ?></td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
                     <td width="220"><?php echo $data['nama_barang']; ?></td>
                     <td width="130"> </td>
@@ -277,9 +349,9 @@ else {
                     <td width="100"  align="center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
                     <td width="130"  align="center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
-                    <td width="200"  align="center"> </td>
+                    <td width="250"  align="center"> </td>
 
-          </tr>
+        </tr>
         <?php } ?>
         <tr>
         <th width="130" colspan="6"> JUMLAH </th>
@@ -299,5 +371,56 @@ else {
     </table>
   <?php } ?>
   <br>
-  <div style="text-align:right">............, <?php echo tanggal_indo(date('Y-m-d')); ?></div>
+
+  <!-- format ttd-->
+  <table>
+    <thead>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> PENGGUNA BARANG </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+        <td></td>
+        <td></td>
+        <td colspan="7" align="center"> PEJABAT PENATAUSAHAAN PENGGUNA BARANG </td>
+        <td></td>
+      </tr>
+      <tr> 
+        <td> </td>
+        <td colspan="3" align="center"> KABUPATEN NGAWI </td>
+        <td> </td>
+        <td> </td>
+        <td colspan="7"> </td>
+        <td></td>
+        <td colspan="3" align="center"> PENGURUS BARANG </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td> </td>
+        <th colspan="3" align="center"> <u> NOOR HASAN MUNTAHA, S.T, M.M </u> </th>
+        <th> </th>
+        <th></th>
+        <th colspan="7" align="center"> <u> TUTIK RAHAYU SRI UTAMI, SH </u> </th>
+        <th></th>
+        <th colspan="3" align="center"> <u> HARI PURNAWAN </u> </th>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> Pembina Tk. I</td>
+        <td> </td>
+        <td></td>
+        <td colspan="7" align="center"> NIP.1968052 199103 2 011</td>
+        <td></td>
+        <td colspan="3" align="center"> NIP.19790719 200901 1 005 </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> NIP.19690927 199803 1 007</td>
+      </tr>
+    </thead>
+  </table>
 <?php } ?>

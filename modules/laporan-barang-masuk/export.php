@@ -28,18 +28,55 @@ else {
   <!-- judul tabel -->
   <center>
     <h4>
-      LAPORAN DATA BARANG MASUK<br>
-    </h4>
+      DAFTAR PENGADAAN BARANG 
+      <h4>
   </center>
+  <br>
 
-  <div style="text-align:left">OPD        : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">KABUPATEN  : NGAWI</div>
-  <div style="text-align:left">PROVINSI   : JAWA TIMUR</div>
+  <!-- tabel Penjelasan -->
+  <table>
+    <thead>
+      <tr>
+        <td> </td>
+        <td> ODP</td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> KABUPATEN </td>
+        <td align="right">:</td>
+        <td colspan="2"> NGAWI </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> PROVINSI</td>
+        <td align="right">:</td>
+        <td colspan="2"> JAWA TIMUR </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td> </td>
+        <td> GUDANG </td>
+        <td align="right">:</td>
+        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> TAHUN ANGGARAN </td>
+        <td align="right">:</td>
+        <td align="left"> <?php echo date('Y', strtotime($tanggal_awal)); ?> </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> JENIS</td>
+        <td align="right">:</td>
+        <td colspan="2"> <?php echo $jenis_barang; ?> </td>
+      </tr>
+    </thead>
+  </table>
   <br>
-  <br>
-  <div style="text-align:left">GUDANG     : DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL</div>
-  <div style="text-align:left">TAHUN ANGGARAN    : <?php echo date('Y', strtotime($tanggal_awal)); ?></div>
-  <div style="text-align:left">JENIS      : <?php echo $jenis_barang; ?></div>
 
   <!-- tabel untuk menampilkan data dari database -->
   <table border="1">
@@ -59,7 +96,7 @@ else {
         <th height="30" align="center" vertical="center">Nomor</th>
         <th height="30" align="center" vertical="center">Tanggal</th>
         <th height="30" align="center" vertical="center">Nomor</th>
-        <th height="30" align="center" vertical="center">merk</th>
+        <th width="150" align="center" vertical="center">Merk</th>
         <th height="30" align="center" vertical="center">Satuan</th>
         <th height="30" align="center" vertical="center">Banyak Barang</th>
         <th height="30" align="center" vertical="center">Harga Satuan</th>
@@ -100,7 +137,7 @@ else {
           <td width="130"> </td>
           <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
           <td width="200" align="center"><?php echo $data['nomor']; ?></td>
-          <td width="130"> </td>
+          <td width="200"> </td>
           <td width="130"><?php echo $data['nama_satuan']; ?></td>
           <td width="130" align="right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
           <td width="130" align="center">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
@@ -110,7 +147,8 @@ else {
         </tr>
       <?php } ?>
       <tr>
-        <th width="130" colspan="8"> JUMLAH </th>
+        <th width="130" colspan="7"> JUMLAH </th>
+        <th></th>
         <th align="right"><?=$total_jumlah?></th>
         <th></th>
         <th >Rp.<?=number_format($total_bayar, 0,'','.')?></th>
@@ -118,5 +156,43 @@ else {
     </tbody>
   </table>
   <br>
-  <div style="text-align:right">............, <?php echo tanggal_indo(date('Y-m-d')); ?></div>
+  <!-- format ttd -->
+  <table>
+    <thead>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> PENGGUNA BARANG </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+        <td colspan="5" align="center"> PEJABAT PENATAUSAHAAN PENGGUNA BARANG </td>
+      </tr>
+      <tr> 
+        <td> </td>
+        <td colspan="3" align="center"> KABUPATEN NGAWI </td>
+        <td colspan="5"> </td>
+        <td colspan="3" align="center"> PENGURUS BARANG </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td> </td>
+        <th colspan="3" align="center"> <u> NOOR HASAN MUNTAHA, S.T, M.M </u> </th>
+        <th colspan="5" align="center"> <u> TUTIK RAHAYU SRI UTAMI, SH </u> </th>
+        <th colspan="3" align="center"> <u> HARI PURNAWAN </u> </th>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> Pembina Tk. I</td>
+        <td colspan="5" align="center"> NIP.1968052 199103 2 011</td>
+        <td colspan="3" align="center"> NIP.19790719 200901 1 005 </td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td colspan="3" align="center"> NIP.19690927 199803 1 007</td>
+      </tr>
+    </thead>
+  </table>
 <?php } ?>
