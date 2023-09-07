@@ -38,7 +38,7 @@ else {
         <td> </td>
         <td> ODP</td>
         <td align="right">:</td>
-        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+        <td colspan="3"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
       </tr>
       <tr>
         <td> </td>
@@ -58,7 +58,7 @@ else {
         <td> </td>
         <td> GUDANG </td>
         <td align="right">:</td>
-        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
+        <td colspan="3"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
       </tr>
       <tr>
         <td> </td>

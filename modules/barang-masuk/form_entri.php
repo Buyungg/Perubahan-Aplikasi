@@ -85,7 +85,7 @@ else { ?>
               <div class="form-group">
                 <label>Barang <span class="text-danger">*</span></label>
                 <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
-                  <option selected disabled value="">-- Pilih --</option>
+                  <option selected disabled value=''>-- Pilih --</option>
                   <?php
                   // sql statement untuk menampilkan data dari tabel "tbl_barang"
                   $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
@@ -93,7 +93,7 @@ else { ?>
                   // ambil data hasil query
                   while ($data_barang = mysqli_fetch_assoc($query_barang)) {
                     // tampilkan data
-                    echo "<option value='$data_barang[id_barang]'>$data_barang[nama_barang]</option>";
+                    echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang]-$data_barang[nama_barang]</option>";
                   }
                   ?>
                 </select>
