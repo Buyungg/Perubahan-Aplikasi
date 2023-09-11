@@ -22,7 +22,7 @@ else {
     $jumlahm        = mysqli_real_escape_string($mysqli, $_POST['jumlahm']);
     $hargam        = mysqli_real_escape_string($mysqli, $_POST['hargam']);
     $totalm        = $jumlahm*$hargam;
-
+    $guna       = mysqli_real_escape_string($mysqli, $_POST['guna']);
 
     $lihatstock = mysqli_query($mysqli, "select * from tbl_barang where id_barang='$id_barang'");
     $stoknya = mysqli_fetch_array($lihatstock);
@@ -36,7 +36,7 @@ else {
       $selisih = $jumlahm-$qtyskrg;
       $kurangin = $stockskrg + $selisih;
       $kurangistocknya = mysqli_query($mysqli, "update tbl_barang set stok='$kurangin' where id_barang='$id_barang'");
-      $updatenya = mysqli_query($mysqli, "update tbl_barang_masuk  SET nomor='$nomor', dari='$dari', jumlahm='$jumlahm', hargam='$hargam', totalm='$totalm'  WHERE id_transaksi='$id_transaksi'");
+      $updatenya = mysqli_query($mysqli, "update tbl_barang_masuk  SET nomor='$nomor', dari='$dari', jumlahm='$jumlahm', hargam='$hargam', totalm='$totalm', guna='$guna'  WHERE id_transaksi='$id_transaksi'");
       if($kurangistocknya&&$updatenya) {
         header('location:../../main.php?module=barang_masuk&pesan=1');
       } else {
@@ -51,7 +51,7 @@ else {
               $selisih = $qtyskrg-$jumlahm;
               $kurangin = $stockskrg - $selisih;
               $kurangistocknya = mysqli_query($mysqli, "update tbl_barang set stok='$kurangin' where id_barang='$id_barang'");
-              $updatenya = mysqli_query($mysqli, "update tbl_barang_masuk SET nomor='$nomor', dari='$dari', jumlahm='$jumlahm', hargam='$hargam', totalm='$totalm'  WHERE id_transaksi='$id_transaksi'");
+              $updatenya = mysqli_query($mysqli, "update tbl_barang_masuk SET nomor='$nomor', dari='$dari', jumlahm='$jumlahm', hargam='$hargam', totalm='$totalm', guna='$guna'  WHERE id_transaksi='$id_transaksi'");
               if($kurangistocknya&&$updatenya){
                   header('location:../../main.php?module=barang_masuk&pesan=1');
           } else {

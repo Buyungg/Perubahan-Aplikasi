@@ -32,14 +32,10 @@ else {
     header("Content-Disposition: attachment; filename=Laporan Stok Seluruh Barang $jenis_barang.xls");
 ?>
     <!-- halaman HTML yang akan diexport ke excel -->
-    <!-- judul tabel -->
-    <center>
-      <h4>LAPORAN STOK SELURUH BARANG KELUAR</h4>
-    </center>
-    <br>
   <!-- tabel Penjelasan -->
   <table>
     <thead>
+      <tr></tr>
       <tr>
         <td> </td>
         <td> ODP</td>
@@ -58,14 +54,6 @@ else {
         <td align="right">:</td>
         <td colspan="2"> JAWA TIMUR </td>
       </tr>
-      <tr></tr>
-      <tr></tr>
-      <tr>
-        <td> </td>
-        <td> GUDANG </td>
-        <td align="right">:</td>
-        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
-      </tr>
       <tr>
         <td> </td>
         <td> TAHUN ANGGARAN </td>
@@ -81,6 +69,11 @@ else {
     </thead>
   </table>
     <br>
+
+    <!-- judul tabel -->
+    <center>
+      <h4>BUKU SELURUH BARANG YANG DIPAKAI</h4>
+    </center>
     <!-- tabel untuk menampilkan data dari database -->
     <table border="1">
       <thead>
@@ -140,6 +133,7 @@ else {
         $total_jumlahk = 0;
         $total_bayark = 0;
         $selisih = 0;
+        $sisa = 0;
         $jumlah = 0;
         while ($data = mysqli_fetch_assoc($query)) { 
          $total_jumlahm += $data['jumlahm'];
@@ -148,6 +142,7 @@ else {
          $total_bayark += $data['totalk'];
          $selisih = $data['totalm'] - $data['totalk'];
          $jumlah += $selisih;
+         $sisa += $data['stok'];
          
           ?>
         
@@ -200,7 +195,7 @@ else {
         <th align="center"><?=$total_jumlahk?></th>
         <th></th>
         <th >Rp.<?=number_format($total_bayark, 0,'','.')?></th>
-        <th></th>
+        <th align="center"><?=$sisa?></th>
         <th >Rp.<?=number_format($jumlah, 0,'','.')?></th>
       </tr>
       </tbody>
@@ -215,15 +210,10 @@ else {
     header("Content-Disposition: attachment; filename=Laporan Stok Barang $jenis_barang pakai habis.xls");
   ?>
     <!-- halaman HTML yang akan diexport ke excel -->
-    <!-- judul tabel -->
-    <center>
-      <h4>LAPORAN STOK BARANG YANG PAKAI HABIS</h4>
-    </center>
-
-    <br>
   <!-- tabel Penjelasan -->
   <table>
     <thead>
+      <tr></tr>
       <tr>
         <td> </td>
         <td> ODP</td>
@@ -242,14 +232,6 @@ else {
         <td align="right">:</td>
         <td colspan="2"> JAWA TIMUR </td>
       </tr>
-      <tr></tr>
-      <tr></tr>
-      <tr>
-        <td> </td>
-        <td> GUDANG </td>
-        <td align="right">:</td>
-        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
-      </tr>
       <tr>
         <td> </td>
         <td> TAHUN ANGGARAN </td>
@@ -264,6 +246,12 @@ else {
       </tr>
     </thead>
   </table>
+    <br>
+
+    <!-- judul tabel -->
+    <center>
+      <h4> BUKU BARANG PAKAI HABIS </h4>
+    </center>
     <br>
     <!-- tabel untuk menampilkan data dari database -->
     <table border="1">

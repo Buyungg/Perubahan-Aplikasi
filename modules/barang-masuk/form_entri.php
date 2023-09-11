@@ -93,7 +93,7 @@ else { ?>
                   // ambil data hasil query
                   while ($data_barang = mysqli_fetch_assoc($query_barang)) {
                     // tampilkan data
-                    echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang]-$data_barang[nama_barang]</option>";
+                    echo "<option value='$data_barang[id_barang]'>$data_barang[nama_barang]</option>";
                   }
                   ?>
                 </select>
@@ -135,7 +135,7 @@ else { ?>
 
               <div class="form-group">
                 <label> Harga <span class="text-danger">*</span></label>
-                <input type="text" name="hargam" class="form-control" required>
+                <input type="text" id="uang" name="hargam" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
               </div>
 
               <div class="form-group">
@@ -149,6 +149,11 @@ else { ?>
               <div class="form-group">
                 <label>Total Stok <span class="text-danger">*</span></label>
                 <input type="text" id="total" name="totalm" class="form-control" readonly>
+              </div>
+
+              <div class="form-group">
+                <label> Dipergukan Pada Unit <span class="text-danger">*</span></label>
+                <input type="text" name="guna" class="form-control">
               </div>
               
             </div>
@@ -165,6 +170,7 @@ else { ?>
   </div>
 
   <script type="text/javascript">
+    // Menampilkan data barang dari select box ke textfield
     $(document).ready(function() {
       // Menampilkan data barang dari select box ke textfield
       $('#data_barang').change(function() {

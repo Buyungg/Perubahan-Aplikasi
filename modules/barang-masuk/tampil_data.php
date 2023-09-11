@@ -83,6 +83,7 @@ else {
                 <th class="text-center">Jumlah Masuk</th>
                 <th class="text-center">Satuan</th>
                 <th class="text-center">Total</th>
+                <th class="text-center">Digunakan</th>
                 <th class="text-center">Aksi</th>
               </tr>
             </thead>
@@ -91,7 +92,7 @@ else {
               // variabel untuk nomor urut tabel
               $no = 1;
               // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", "tbl_jenis" dan tabel "tbl_satuan"
-              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.barang, a.nomor, a.dari, a.hargam, a.jumlahm, a.totalm, b.nama_barang , c.nama_satuan, d.nama_jenis
+              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.barang, a.nomor, a.dari, a.hargam, a.jumlahm, a.totalm, a.guna, b.nama_barang , c.nama_satuan, d.nama_jenis
                                               FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d
                                               ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND  b.jenis=d.id_jenis
                                               ORDER BY a.id_transaksi DESC")
@@ -110,6 +111,7 @@ else {
                   <td width="90" class="text-right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
                   <td width="60" class="text-center"><?php echo $data['nama_satuan']; ?></td>
                   <td width="110" class="text-center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
+                  <td width="100" class="text-center"><?php echo $data['guna']; ?></td>
                   <td width="120" class="text-center">
                     <div>
                       <!-- tombol ubah data -->

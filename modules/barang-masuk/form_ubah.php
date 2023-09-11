@@ -13,7 +13,7 @@ else {
     $id_transaksi = $_GET['id'];
 
     // sql statement untuk menampilkan data dari tabel "tbl_masuk" berdasarkan "id_transaksi"
-    $query = mysqli_query($mysqli, "SELECT  a.id_transaksi, a.barang, a.nomor, a.dari, a.jumlahm, a.hargam, b.id_barang, b.nama_barang
+    $query = mysqli_query($mysqli, "SELECT  a.id_transaksi, a.barang, a.nomor, a.dari, a.jumlahm, a.hargam, a.guna, b.id_barang, b.nama_barang
                           FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b
                           ON a.barang=b.id_barang 
                           WHERE id_transaksi='$id_transaksi'")
@@ -79,6 +79,12 @@ else {
             <label>Harga Satuan <span class="text-danger">*</span></label>
             <input type="text" name="hargam" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['hargam']; ?>" required>
             <div class="invalid-feedback">Harga barang tidak boleh kosong.</div>
+          </div>
+
+          <div class="form-group">
+            <label> Dipergunakan oleh Unit <span class="text-danger">*</span></label>
+            <input type="text" name="guna" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['guna']; ?>" required>
+            <div class="invalid-feedback">dipergunakan tidak boleh kosong.</div>
           </div>
 
         </div>

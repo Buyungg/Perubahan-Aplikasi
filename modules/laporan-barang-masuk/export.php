@@ -25,17 +25,10 @@ else {
   header("Content-Disposition: attachment; filename=Laporan Data Barang Masuk $jenis_barang.xls");
 ?>
   <!-- halaman HTML yang akan diexport ke excel -->
-  <!-- judul tabel -->
-  <center>
-    <h4>
-      DAFTAR PENGADAAN BARANG 
-      <h4>
-  </center>
-  <br>
-
   <!-- tabel Penjelasan -->
   <table>
     <thead>
+      <tr></tr>
       <tr>
         <td> </td>
         <td> ODP</td>
@@ -54,14 +47,6 @@ else {
         <td align="right">:</td>
         <td colspan="2"> JAWA TIMUR </td>
       </tr>
-      <tr></tr>
-      <tr></tr>
-      <tr>
-        <td> </td>
-        <td> GUDANG </td>
-        <td align="right">:</td>
-        <td colspan="2"> DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL </td>
-      </tr>
       <tr>
         <td> </td>
         <td> TAHUN ANGGARAN </td>
@@ -70,12 +55,19 @@ else {
       </tr>
       <tr>
         <td> </td>
-        <td> JENIS</td>
+        <td> JENIS BELANJA </td>
         <td align="right">:</td>
         <td colspan="2"> <?php echo $jenis_barang; ?> </td>
       </tr>
     </thead>
   </table>
+  <br>
+  <!-- judul tabel -->
+  <center>
+    <h4>
+      DAFTAR PENGADAAN BARANG 
+      <h4>
+  </center>
   <br>
 
   <!-- tabel untuk menampilkan data dari database -->
@@ -115,7 +107,7 @@ else {
       $no = 1;
 
       // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-      $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.nomor, a.barang, a.jumlahm, a.hargam, a.totalm, b.nama_barang, c.nama_satuan, d.nama_jenis
+      $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.nomor, a.barang, a.jumlahm, a.hargam, a.totalm, a.guna, b.nama_barang, c.nama_satuan, d.nama_jenis
                                       FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d
                                       ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis
                                       WHERE a.tanggalm BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
@@ -132,7 +124,7 @@ else {
         <!-- tampilkan data -->
         <tr>
           <td width="70" align="center"><?php echo $no++; ?></td>
-          <td width="200" align="center"><?php echo $data['nama_barang']; ?></td>
+          <td width="200"><?php echo $data['nama_barang']; ?></td>
           <td width="130"> </td>
           <td width="130"> </td>
           <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
@@ -142,7 +134,7 @@ else {
           <td width="130" align="right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
           <td width="130" align="center">Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
           <td width="130" align="center">Rp. <?php echo number_format($data['totalm'], 0, '', '.'); ?></td>
-          <td width="150"> </td>
+          <td width="150" align="center"> <?php echo $data['guna']; ?> </td>
           
         </tr>
       <?php } ?>
