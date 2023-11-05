@@ -13,9 +13,9 @@ else {
     $id_barang = $_GET['id'];
 
     // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "id_barang"
-    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan
+    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan, d.hargam
                                     FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c 
-                                    ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan 
+                                    ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan RIGHT JOIN tbl_barang_masuk as d ON a.id_barang=d.barang
                                     WHERE a.id_barang='$id_barang'")
                                     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil data hasil query
@@ -59,14 +59,9 @@ else {
           <div class="card-body">
             <table class="table table-striped">
               <tr>
-                <td width="120">ID Barang</td>
-                <td width="10">:</td>
-                <td><?php echo $data['id_barang']; ?></td>
-              </tr>
-              <tr>
                 <td>Nama Barang</td>
                 <td>:</td>
-                <td><?php echo $data['nama_barang']; ?></td>
+                <td style="text-transform: uppercase;"><b><?php echo $data['nama_barang']; ?></b></td>
               </tr>
               <tr>
                 <td>Jenis Barang</td>
@@ -74,14 +69,14 @@ else {
                 <td><?php echo $data['nama_jenis']; ?></td>
               </tr>
               <tr>
-                <td>Stok Minimum</td>
-                <td>:</td>
-                <td><?php echo $data['stok_minimum']; ?></td>
-              </tr>
-              <tr>
                 <td>Stok</td>
                 <td>:</td>
                 <td><?php echo $data['stok']; ?></td>
+              </tr>
+              <tr>
+                <td>Harga Satuan</td>
+                <td>:</td>
+                <td>Rp. <?php echo number_format($data['hargam'], 0, '', '.'); ?></td>
               </tr>
               <tr>
                 <td>Satuan</td>

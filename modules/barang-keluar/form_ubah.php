@@ -66,13 +66,13 @@ else {
           <div class="form-group">
             <label>Harga Satuan <span class="text-danger">*</span></label>
             <input type="text" name="hargak" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['hargak']; ?>" readonly>
-            <div class="invalid-feedback">Jumlah barang tidak boleh kosong.</div>
+            <div class="invalid-feedback">Harga barang tidak boleh kosong.</div>
           </div>
 
           <div class="form-group">
             <label>Diserahkan <span class="text-danger">*</span></label>
             <input type="text" name="serah" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['serah']; ?>" required>
-            <div class="invalid-feedback">Jumlah barang tidak boleh kosong.</div>
+            <div class="invalid-feedback">Diserahkan tidak boleh kosong.</div>
           </div>
 
         </div>

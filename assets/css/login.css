@@ -1,8 +1,9 @@
 /*     	Login     */
 .login {
-  background-image: url('../img/dis.jpg');
+  background:rgba(0, 0, 0, 0.8) url('../img/dis.jpg');
   height: 100%;
   background-position: center;
+  background-blend-mode: darken;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -18,7 +19,7 @@
 .login .wrapper.wrapper-login .container-login,
 .login .wrapper.wrapper-login .container-signup {
   width: 400px;
-  background: #ffffff;
+  background: #ffffffda;
   padding: 40px 25px;
   border-radius: 5px;
   -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);

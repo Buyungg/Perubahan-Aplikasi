@@ -126,7 +126,7 @@ else {
                     <div>
                       <!-- tombol detail data -->
                       <a href="?module=tampil_detail_barang&id=<?php echo $data['id_barang']; ?>" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
-                        <i class="fas fa-clone fa-sm"></i>
+                        <i class="fas fa-info fa-sm"></i>
                       </a>
                       <!-- tombol ubah data -->
                       <a href="?module=form_ubah_barang&id=<?php echo $data['id_barang']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">

@@ -62,7 +62,7 @@ else { ?>
           <!-- Logo Brand -->
           <a href="?module=dashboard" class="logo">
             <div class="navbar-brand">
-              <span><img src="assets/img/logo-ngawi.png" width="40" height="50"></i></span>
+              <span><img src="assets/img/logo-ngawi.png" width="40" height="50"></span>
               <span class="text-white">SIPeBa</span>
             </div>
           </a>
@@ -129,12 +129,11 @@ else { ?>
             <!-- data user login -->
             <div class="user">
               <div class="avatar-sm float-left mr-2">
-               
               </div>
               <div class="info">
                 <a>
                   <span>
-                    <?php echo $_SESSION['nama_user']; ?>
+                   <h2><?php echo $_SESSION['nama_user']; ?></h2>
                     <span class="user-level"><?php echo $_SESSION['hak_akses']; ?></span>
                   </span>
                 </a>

@@ -83,7 +83,7 @@ else {
 
           <div class="form-group">
             <label> Dipergunakan oleh Unit <span class="text-danger">*</span></label>
-            <input type="text" name="guna" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['guna']; ?>" required>
+            <input type="text" name="guna" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['guna']; ?>">
             <div class="invalid-feedback">dipergunakan tidak boleh kosong.</div>
           </div>
 
