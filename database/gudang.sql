@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2023 at 11:50 PM
+-- Generation Time: Nov 07, 2023 at 04:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.29
 
@@ -41,9 +41,8 @@ CREATE TABLE `tbl_barang` (
 --
 
 INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`) VALUES
-('B0002', 'Spidol', 1, 0, 100, 3),
-('B0003', 'Kertas HVS', 1, 0, 0, 1),
-('B0005', 'Stapless', 1, 0, 5, 5);
+('B0001', 'mouse', 2, 0, 10, 2),
+('B0002', 'Buku', 1, 0, 20, 5);
 
 -- --------------------------------------------------------
 
@@ -66,9 +65,8 @@ CREATE TABLE `tbl_barang_keluar` (
 --
 
 INSERT INTO `tbl_barang_keluar` (`id_transaksi`, `tanggalk`, `barang`, `hargak`, `jumlahk`, `totalk`, `serah`) VALUES
-('TK-0000008', '2023-09-06', 'B0002', 8000, 25, 200000, 'Pencetak'),
-('TK-0000009', '2023-09-06', 'B0003', 45000, 25, 1125000, 'Pencetak'),
-('TK-0000010', '2023-09-06', 'B0005', 17500, 20, 350000, 'Administrasi');
+('TK-0000001', '2023-09-13', 'B0002', 30000, 50, 1500000, 'Pengurus Barang'),
+('TK-0000002', '2023-11-01', 'B0001', 50000, 40, 2000000, 'Pengurus Barang');
 
 --
 -- Triggers `tbl_barang_keluar`
@@ -102,17 +100,17 @@ CREATE TABLE `tbl_barang_masuk` (
   `hargam` int(11) NOT NULL DEFAULT 0,
   `jumlahm` int(11) DEFAULT NULL,
   `dari` varchar(255) NOT NULL DEFAULT '',
-  `totalm` int(11) NOT NULL DEFAULT 0
+  `totalm` int(11) NOT NULL DEFAULT 0,
+  `guna` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbl_barang_masuk`
 --
 
-INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggalm`, `barang`, `nomor`, `hargam`, `jumlahm`, `dari`, `totalm`) VALUES
-('TM-0000001', '2023-09-01', 'B0003', '03/02.046/Capil/2023', 45000, 25, 'Bendahara Pengeluaran', 1125000),
-('TM-0000003', '2023-09-01', 'B0002', '09/01.036/Capil/2023', 8000, 125, 'Bendahara Pengeluaran', 1000000),
-('TM-0000006', '2023-09-04', 'B0005', '08/01.026/Capil/2023', 17500, 25, 'Bendahara Pengeluaran', 437500);
+INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggalm`, `barang`, `nomor`, `hargam`, `jumlahm`, `dari`, `totalm`, `guna`) VALUES
+('TM-0000001', '2023-09-13', 'B0001', '01/01.026/Capil/2023', 50000, 50, 'Bendahara Pengeluaran', 2500000, 'Sekretariat'),
+('TM-0000002', '2023-09-13', 'B0002', '04/01.026/Capil/2023', 30000, 70, 'Bendahara Pengeluaran', 2100000, 'Sekretariat');
 
 --
 -- Triggers `tbl_barang_masuk`
@@ -157,7 +155,8 @@ CREATE TABLE `tbl_jenis` (
 
 INSERT INTO `tbl_jenis` (`id_jenis`, `nama_jenis`) VALUES
 (1, 'Alat Tulis Kantor'),
-(2, 'Alat Elektronik');
+(2, 'Alat Elektronik'),
+(3, 'Alat Kebersihan');
 
 -- --------------------------------------------------------
 
@@ -179,7 +178,8 @@ INSERT INTO `tbl_satuan` (`id_satuan`, `nama_satuan`) VALUES
 (2, 'Unit'),
 (3, 'Buah'),
 (4, 'Lembar'),
-(5, 'Dus');
+(5, 'Dus'),
+(6, 'Botol');
 
 -- --------------------------------------------------------
 
@@ -201,7 +201,7 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
 (1, 'Admin', 'admin', '$2y$12$Yi/I5f1jPoQNQnh6lWoVfuz.RtZ3OHcKN6PU.I62P0fYK1tJ7xMRi', 'Administrator'),
-(4, 'gembeng', 'gembeng', '$2y$12$DzggT3w5t4gZ3LEhEYKQ.ursgOYRdZEEcb2yOX46zzGvrfcp8oUU6', 'Admin Gudang');
+(5, 'user', 'user', '$2y$12$Ib48fx4TGThnqwGo/EBkJuLBhJ5A.BCPVEWLE/GIRFEp1Y9y.6oYu', 'Admin Gudang');
 
 --
 -- Indexes for dumped tables
@@ -251,19 +251,19 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_jenis`
 --
 ALTER TABLE `tbl_jenis`
-  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`
 --
 ALTER TABLE `tbl_satuan`
-  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
