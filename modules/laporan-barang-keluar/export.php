@@ -1,38 +1,38 @@
 <?php
-session_start();      // mengaktifkan session
+session_start();       
 
-// pengecekan session login user 
-// jika user belum login
+ 
+ 
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
-  // alihkan ke halaman login dan tampilkan pesan peringatan login
+   
   header('location: ../../login.php?pesan=2');
 }
-// jika user sudah login, maka jalankan perintah untuk export
+ 
 else {
-  // panggil file "database.php" untuk koneksi ke database
+   
   require_once "../../config/database.php";
-  // panggil file "fungsi_tanggal_indo.php" untuk membuat format tanggal indonesia
+   
   require_once "../../helper/fungsi_tanggal_indo.php";
 
-  // ambil data GET dari tombol export
+   
   $tanggal_awal  = $_GET['tanggal_awal'];
   $tanggal_akhir = $_GET['tanggal_akhir'];
   $stok = $_GET['stok'];
   $jenis_barang = $_GET['jenis_barang'];
 
-  // variabel untuk nomor urut tabel 
+   
   $no = 1;
 
-  // mengecek filter data stok
-  // jika filter data stok "Seluruh" dipilih, tampilkan laporan stok seluruh barang
+   
+   
   if ($stok == 'Seluruh') {
-    // fungsi header untuk mengirimkan raw data excel
+     
     header("Content-type: application/vnd-ms-excel");
-    // mendefinisikan nama file hasil ekspor "Laporan Stok Seluruh Barang.xls"
+     
     header("Content-Disposition: attachment; filename=Laporan Stok Seluruh Barang $jenis_barang.xls");
 ?>
-    <!-- halaman HTML yang akan diexport ke excel -->
-  <!-- tabel Penjelasan -->
+     
+   
   <table>
     <thead>
       <tr></tr>
@@ -70,11 +70,11 @@ else {
   </table>
     <br>
 
-    <!-- judul tabel -->
+     
     <center>
       <h4>BUKU SELURUH BARANG YANG DIPAKAI</h4>
     </center>
-    <!-- tabel untuk menampilkan data dari database -->
+     
     <table border="1">
       <thead>
         <tr>
@@ -121,13 +121,13 @@ else {
         <?php
          $tanggal_awal  = date('Y-m-d', strtotime($tanggal_awal));
          $tanggal_akhir = date('Y-m-d', strtotime($tanggal_akhir));
-        // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan"
+         
         $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalk, a.barang, a.jumlahk, a.hargak, a.serah, a.totalk, b.nama_barang, b.stok, b.stok_minimum, c.nama_satuan, d.nama_jenis , e.dari, e.tanggalm, e.jumlahm, e.totalm
                                         FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d INNER JOIN tbl_barang_masuk as e
                                         ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis AND b.id_barang=e.barang
                                         WHERE a.tanggalk BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
                                         or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-        // ambil data hasil query
+         
         $total_jumlahm = 0;
         $total_bayarm = 0;
         $total_jumlahk = 0;
@@ -146,7 +146,7 @@ else {
          
           ?>
         
-          <!-- tampilkan data -->
+           
           <tr>
 
                     <td width="50"   align="center"><?php echo $no++; ?></td>
@@ -167,15 +167,15 @@ else {
                     <td width="130"  align="center">Rp. <?php echo number_format($data['hargak'], 0, '', '.'); ?></td>
                     <td width="200"  align="center">Rp. <?php echo number_format($data['totalk'], 0, '', '.'); ?></td>
             <?php
-            // mengecek data "stok"
-            // jika data stok minim
+             
+             
             if ($data['stok'] <= $data['stok_minimum']) { ?>
-              <!-- tampilkan data dengan warna background -->
+               
               <td width="100" align="center"><?php echo $data['stok']; ?></td>
             <?php }
-            // jika data stok tidak minim
+             
             else { ?>
-              <!-- tampilkan data tanpa warna background -->
+               
               <td width="100" align="center"><?php echo $data['stok']; ?></td>
               <td>Rp.<?=number_format($selisih, 0,'','.')?></td>
             <?php } ?>
@@ -202,15 +202,15 @@ else {
     </table>
   <?php
   }
-  // jika filter data stok "Minimum" dipilih, tampilkan laporan stok barang yang mencapai batas minimum
+   
   else {
-    // fungsi header untuk mengirimkan raw data excel
+     
     header("Content-type: application/vnd-ms-excel");
-    // mendefinisikan nama file hasil ekspor "Laporan Stok Barang Minimum.xls"
+     
     header("Content-Disposition: attachment; filename=Laporan Stok Barang $jenis_barang pakai habis.xls");
   ?>
-    <!-- halaman HTML yang akan diexport ke excel -->
-  <!-- tabel Penjelasan -->
+     
+   
   <table>
     <thead>
       <tr></tr>
@@ -248,12 +248,12 @@ else {
   </table>
     <br>
 
-    <!-- judul tabel -->
+     
     <center>
       <h4> BUKU BARANG PAKAI HABIS </h4>
     </center>
     <br>
-    <!-- tabel untuk menampilkan data dari database -->
+     
     <table border="1">
       <thead>
       <tr>
@@ -299,13 +299,13 @@ else {
         <?php
          $tanggal_awal  = date('Y-m-d', strtotime($tanggal_awal));
          $tanggal_akhir = date('Y-m-d', strtotime($tanggal_akhir));
-        // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "stok"
+         
         $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalk, a.barang, a.jumlahk, a.hargak, a.serah, a.totalk, b.nama_barang, b.stok, b.stok_minimum, c.nama_satuan, d.nama_jenis , e.dari, e.tanggalm, e.jumlahm, e.totalm
                                         FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d INNER JOIN tbl_barang_masuk as e
                                         ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis AND b.id_barang=e.barang
                                         WHERE a.tanggalk BETWEEN '$tanggal_awal' AND '$tanggal_akhir'AND b.stok<=b.stok_minimum AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
                                         or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-        // ambil data hasil query
+         
 
           $total_jumlahm = 0;
           $total_bayarm = 0;
@@ -318,7 +318,7 @@ else {
           $total_bayark += $data['totalk'];
           
          ?>
-          <!-- tampilkan data -->
+           
           <tr>
                     <td width="50" align="center"><?php echo $no++; ?></td>
                     <td width="170"  align="center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
@@ -360,7 +360,7 @@ else {
   <?php } ?>
   <br>
 
-  <!-- format ttd-->
+   
   <table>
     <thead>
       <tr>

@@ -1,21 +1,20 @@
 <?php
-// mencegah direct access file PHP agar file PHP tidak bisa diakses secara langsung dari browser dan hanya dapat dijalankan ketika di include oleh file lain
-// jika file diakses secara langsung
+
 if (basename($_SERVER['PHP_SELF']) === basename(__FILE__)) {
-  // alihkan ke halaman error 404
+ 
   header('location: 404.html');
 }
-// jika file di include oleh file lain, tampilkan isi file
+
 else { ?>
-  <!-- menampilkan pesan kesalahan -->
+
   <div id="pesan"></div>
 
   <div class="panel-header bg-secondary-gradient">
     <div class="page-inner py-4">
       <div class="page-header text-white">
-        <!-- judul halaman -->
+  
         <h4 class="page-title text-white"><i class="fas fa-sign-out-alt mr-2"></i> Barang Keluar</h4>
-        <!-- breadcrumbs -->
+   
         <ul class="breadcrumbs">
           <li class="nav-home"><a href="?module=dashboard"><i class="flaticon-home text-white"></i></a></li>
           <li class="separator"><i class="flaticon-right-arrow"></i></li>
@@ -30,10 +29,10 @@ else { ?>
   <div class="page-inner mt--5">
     <div class="card">
       <div class="card-header">
-        <!-- judul form -->
+        
         <div class="card-title">Entri Data Barang Keluar</div>
       </div>
-      <!-- form entri data -->
+      
       <form action="modules/barang-keluar/proses_entri.php" method="post" class="needs-validation" novalidate>
         <div class="card-body">
           <div class="row">
@@ -48,31 +47,29 @@ else { ?>
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <?php
-                // membuat "id_transaksi"
-                // sql statement untuk menampilkan 7 digit terakhir dari "id_transaksi" pada tabel "tbl_barang_keluar"
+                
                 $query = mysqli_query($mysqli, "SELECT RIGHT(id_transaksi,7) as nomor FROM tbl_barang_keluar ORDER BY id_transaksi DESC LIMIT 1")
                                                 or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                // ambil jumlah baris data hasil query
+                
                 $rows = mysqli_num_rows($query);
 
-                // cek hasil query
-                // jika "id_transaksi" sudah ada
+                
                 if ($rows <> 0) {
-                  // ambil data hasil query
+                  
                   $data = mysqli_fetch_assoc($query);
-                  // nomor urut "id_transaksi" yang terakhir + 1 (contoh nomor urut yang terakhir adalah 2, maka 2 + 1 = 3, dst..)
+                  
                   $nomor_urut = $data['nomor'] + 1;
                 }
-                // jika "id_transaksi" belum ada
+                
                 else {
-                  // nomor urut "id_transaksi" = 1
+                  
                   $nomor_urut = 1;
                 }
 
-                // menambahkan karakter "TK-" diawal dan karakter "0" disebelah kiri nomor urut
+                
                 $id_transaksi = "TK-" . str_pad($nomor_urut, 7, "0", STR_PAD_LEFT);
                 ?>
-                <!-- tampilkan "id_transaksi" -->
+                
                 <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>" hidden>
               </div>
             </div>
@@ -87,12 +84,12 @@ else { ?>
                 <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
                   <option selected disabled value="">-- Pilih --</option>
                   <?php
-                  // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                  
                   $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
                                                          or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                  // ambil data hasil query
+                  
                   while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                    // tampilkan data
+                    
                     echo "<option value='$data_barang[id_barang]'>$data_barang[nama_barang]</option>";
                   }
                   ?>
@@ -145,9 +142,9 @@ else { ?>
           </div>
         </div>
         <div class="card-action">
-          <!-- tombol simpan data -->
+         
           <input type="submit" name="simpan" value="Simpan" class="btn btn-secondary btn-round pl-4 pr-4 mr-2">
-          <!-- tombol kembali ke halaman data barang keluar -->
+          
           <a href="?module=barang_keluar" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
         </div>
       </form>
@@ -156,74 +153,73 @@ else { ?>
 
   <script type="text/javascript">
     $(document).ready(function() {
-      // Menampilkan data barang dari select box ke textfield
+      
       $('#data_barang').change(function() {
-        // mengambil value dari "id_barang"
+        
         var id_barang = $('#data_barang').val();
 
         $.ajax({
-          type: "GET",                                  // mengirim data dengan method GET 
-          url: "modules/barang-keluar/get_barang.php",  // proses get data berdasarkan "id_barang"
-          data: {id_barang: id_barang},                 // data yang dikirim
-          dataType: "JSON",                             // tipe data JSON
-          success: function(result) {                   // ketika proses get data selesai
-            // tampilkan data
+          type: "GET",                                  
+          url: "modules/barang-keluar/get_barang.php",  
+          data: {id_barang: id_barang},                 
+          dataType: "JSON",                             
+          success: function(result) {                   
+            
             $('#data_stok').val(result.stok);
             $('#data_jenis').val(result.nama_jenis);
             $('#data_harga').val(result.hargam);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
-            // set focus
+            
             $('#jumlah').focus();
           }
         });
       });
 
-      // menghitung sisa stok
+      
       $('#jumlah').keyup(function() {
-        // mengambil data dari form entri
+        
         var stok = $('#data_stok').val();
         var jumlah = $('#jumlah').val();
 
-        // mengecek input data
-        // jika data barang belum diisi
+        
         if (stok == "") {
-          // tampilkan pesan info
+          
           $('#pesan').html('<div class="alert alert-notify alert-info alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-info"></span><span data-notify="title" class="text-info">Info!</span> <span data-notify="message">Silahkan isi data barang terlebih dahulu.</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-          // reset input "jumlah"
+          
           $('#jumlah').val('');
-          // sisa stok kosong
+          
           var sisa_stok = "";
         }
-        // jika "jumlah" belum diisi
+        
         else if (jumlah == "") {
-          // sisa stok kosong
+          
           var sisa_stok = "";
         }
-        // jika "jumlah" diisi 0
+        
         else if (jumlah == 0) {
-          // tampilkan pesan peringatan
+          
           $('#pesan').html('<div class="alert alert-notify alert-warning alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-exclamation"></span><span data-notify="title" class="text-warning">Peringatan!</span> <span data-notify="message">Jumlah keluar tidak boleh 0 (nol).</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-          // reset input "jumlah"
+         
           $('#jumlah').val('');
-          // sisa stok kosong
+          
           var sisa_stok = "";
         }
-        // jika "jumlah" lebih dari "stok"
+        
         else if (eval(jumlah) > eval(stok)) {
-          // tampilkan pesan peringatan
+          
           $('#pesan').html('<div class="alert alert-notify alert-warning alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-exclamation"></span><span data-notify="title" class="text-warning">Peringatan!</span> <span data-notify="message">Stok tidak memenuhi, kurangi jumlah keluar.</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-          // reset input "jumlah"
+          
           $('#jumlah').val('');
-          // sisa stok kosong
+          
           var sisa_stok = "";
         }
-        // jika "jumlah" sudah diisi
+        
         else {
-          // hitung sisa stok
+          
           var sisa_stok = eval(stok) - eval(jumlah);
         }
 
-        // tampilkan sisa stok
+        
         $('#sisa').val(sisa_stok);
       });
     });

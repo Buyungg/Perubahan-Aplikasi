@@ -1,13 +1,13 @@
 <?php
-session_start();      // mengaktifkan session
+session_start();       
 
-// pengecekan session login user 
-// jika user belum login
+ 
+ 
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
-  // alihkan ke halaman login dan tampilkan pesan peringatan login
+   
   header('location: login.php?pesan=2');
 }
-// jika user sudah login, tampilkan halaman konten
+ 
 else { ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -18,13 +18,13 @@ else { ?>
     <meta name="description" content="Aplikasi Persediaan Barang" />
     
 
-    <!-- Title -->
+     
     <title>Aplikasi Persediaan Barang </title>
 
-    <!-- Favicon icon -->
+     
     <link rel="icon" href="assets/img/logo-ngawi.png" type="image/x-icon" />
 
-    <!-- Fonts and icons -->
+     
     <script src="assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
       WebFont.load({
@@ -41,32 +41,32 @@ else { ?>
       });
     </script>
 
-    <!-- Datepicker CSS -->
+     
     <link rel="stylesheet" href="assets/js/plugin/datepicker/css/bootstrap-datepicker.css">
-    <!-- Chosen CSS -->
+     
     <link rel="stylesheet" href="assets/js/plugin/chosen/css/chosen.css">
 
-    <!-- CSS Files -->
+     
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/atlantis.min.css">
 
-    <!-- jQuery Core -->
+     
     <script src="assets/js/core/jquery.3.2.1.min.js"></script>
   </head>
 
   <body>
     <div class="wrapper">
       <div class="main-header">
-        <!-- Logo Header -->
+         
         <div class="logo-header" data-background-color="blue">
-          <!-- Logo Brand -->
+           
           <a href="?module=dashboard" class="logo">
             <div class="navbar-brand">
               <span><img src="assets/img/logo-ngawi.png" width="40" height="50"></span>
               <span class="text-white">SIPeBa</span>
             </div>
           </a>
-          <!-- Navbar Toggler -->
+           
           <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
               <i class="icon-menu"></i>
@@ -79,13 +79,13 @@ else { ?>
             </button>
           </div>
         </div>
-        <!-- End Logo Header -->
+         
 
-        <!-- Navbar Header -->
+         
         <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue">
           <div class="container-fluid">
             <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-              <!-- data user login -->
+               
               <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="javascript:void(0)" aria-expanded="false">
                   <div class="avatar-sm-top mt-1">
@@ -98,20 +98,15 @@ else { ?>
                     <div class="user-box">
                       
                       <div class="u-text pt-1">
-                        <h4><?php echo $_SESSION['nama_user']; ?></h4>
-                        <p class="text-muted"><?php echo $_SESSION['hak_akses']; ?></p>
+                        <i><?php echo $_SESSION['nama_user']; ?></i>
                       </div>
                     </div>
                   </li>
-                  <!-- menu user -->
+                   
                   <li>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="?module=form_ubah_password">
-                      <i class="fas fa-user-lock mr-1"></i> Ubah Password
-                    </a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLogout">
-                      <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                      <h4> <i class="fas fa-sign-out-alt mr-1"></i> Logout </h4>
                     </a>
                   </li>
                 </ul>
@@ -119,55 +114,42 @@ else { ?>
             </ul>
           </div>
         </nav>
-        <!-- End Navbar -->
+         
       </div>
 
-      <!-- Sidebar -->
+       
       <div class="sidebar sidebar-style-2">
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-            <!-- data user login -->
-            <div class="user">
-              <div class="avatar-sm float-left mr-2">
-              </div>
-              <div class="info">
-                <a>
-                  <span>
-                   <h2><?php echo $_SESSION['nama_user']; ?></h2>
-                    <span class="user-level"><?php echo $_SESSION['hak_akses']; ?></span>
-                  </span>
-                </a>
-              </div>
-            </div>
-            <!-- Sidebar Menu -->
+             
             <ul class="nav nav-secondary">
 
-              <!-- panggil file "sidebar_menu.php" untuk menampilkan menu -->
+               
               <?php include "sidebar_menu.php"; ?>
 
             </ul>
           </div>
         </div>
       </div>
-      <!-- End Sidebar -->
+       
 
       <div class="main-panel">
-        <!-- Main Content -->
+         
         <div class="content">
 
-          <!-- panggil file "content.php" untuk menampilkan halaman konten -->
+           
           <?php include "content.php"; ?>
 
         </div>
-        <!-- End Main Content -->
+         
 
-        <!-- Footer -->
+         
         
-        <!-- End Footer -->
+         
       </div>
     </div>
 
-    <!-- Modal Logout -->
+     
     <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -186,27 +168,27 @@ else { ?>
       </div>
     </div>
 
-    <!-- Core JS Files -->
+     
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap.min.js"></script>
 
-    <!-- jQuery UI -->
+     
     <script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
-    <!-- jQuery Scrollbar -->
+     
     <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <!-- Datatables -->
+     
     <script src="assets/js/plugin/datatables/datatables.min.js"></script>
-    <!-- Datepicker JS -->
+     
     <script src="assets/js/plugin/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <!-- Chosen JS -->
+     
     <script src="assets/js/plugin/chosen/js/chosen.jquery.js"></script>
 
-    <!-- Atlantis JS -->
+     
     <script src="assets/js/atlantis.min.js"></script>
 
-    <!-- Custom Scripts -->
+     
     <script src="assets/js/plugin.js"></script>
     <script src="assets/js/form-validation.js"></script>
   </body>

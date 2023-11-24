@@ -1,31 +1,31 @@
 <?php
-session_start();      // mengaktifkan session
+session_start();       
 
-// pengecekan session login user 
-// jika user belum login
+ 
+ 
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
-  // alihkan ke halaman login dan tampilkan pesan peringatan login
+   
   header('location: ../../login.php?pesan=2');
 }
-// jika user sudah login, maka jalankan perintah untuk export
+ 
 else {
-  // panggil file "database.php" untuk koneksi ke database
+   
   require_once "../../config/database.php";
-  // panggil file "fungsi_tanggal_indo.php" untuk membuat format tanggal indonesia
+   
   require_once "../../helper/fungsi_tanggal_indo.php";
 
-  // ambil data GET dari tombol export
+   
   $tanggal_awal  = $_GET['tanggal_awal'];
   $tanggal_akhir = $_GET['tanggal_akhir'];
   $jenis_barang = $_GET['jenis_barang'];
 
-  // fungsi header untuk mengirimkan raw data excel
+   
   header("Content-type: application/vnd-ms-excel");
-  // mendefinisikan nama file hasil ekspor "Laporan Data Barang Masuk.xls"
+   
   header("Content-Disposition: attachment; filename=Laporan Data Barang Masuk $jenis_barang.xls");
 ?>
-  <!-- halaman HTML yang akan diexport ke excel -->
-  <!-- tabel Penjelasan -->
+   
+   
   <table>
     <thead>
       <tr></tr>
@@ -62,7 +62,7 @@ else {
     </thead>
   </table>
   <br>
-  <!-- judul tabel -->
+   
   <center>
     <h4>
       DAFTAR PENGADAAN BARANG 
@@ -70,7 +70,7 @@ else {
   </center>
   <br>
 
-  <!-- tabel untuk menampilkan data dari database -->
+   
   <table border="1">
     <thead>
       <tr>
@@ -98,22 +98,22 @@ else {
     </thead>
     <tbody>
       <?php
-      // ubah format tanggal menjadi Tahun-Bulan-Hari (Y-m-d)
+       
       $tanggal_awal  = date('Y-m-d', strtotime($tanggal_awal));
       $tanggal_akhir = date('Y-m-d', strtotime($tanggal_akhir));
 
-      // variabel untuk nomor urut tabel 
+       
       
       $no = 1;
 
-      // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
+       
       $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggalm, a.nomor, a.barang, a.jumlahm, a.hargam, a.totalm, a.guna, b.nama_barang, c.nama_satuan, d.nama_jenis
                                       FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c INNER JOIN tbl_jenis as d
                                       ON a.barang=b.id_barang AND b.satuan=c.id_satuan AND b.jenis=d.id_jenis
                                       WHERE a.tanggalm BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND LOWER(d.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_transaksi ASC")
                                       or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                                   
-      // ambil data hasil query
+       
       $total_jumlah = 0;
       $total_bayar = 0; 
       while ($data = mysqli_fetch_assoc($query)) { 
@@ -121,7 +121,7 @@ else {
         $total_bayar += $data['totalm'];
         
         ?>
-        <!-- tampilkan data -->
+         
         <tr>
           <td width="70" align="center"><?php echo $no++; ?></td>
           <td width="200"><?php echo $data['nama_barang']; ?></td>
@@ -148,7 +148,7 @@ else {
     </tbody>
   </table>
   <br>
-  <!-- format ttd -->
+   
   <table>
     <thead>
       <tr>

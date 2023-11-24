@@ -1,18 +1,18 @@
 <?php
-// mencegah direct access file PHP agar file PHP tidak bisa diakses secara langsung dari browser dan hanya dapat dijalankan ketika di include oleh file lain
-// jika file diakses secara langsung
+ 
+ 
 if (basename($_SERVER['PHP_SELF']) === basename(__FILE__)) {
-  // alihkan ke halaman error 404
+   
   header('location: 404.html');
 }
-// jika file di include oleh file lain, tampilkan isi file
+ 
 else { ?>
   <div class="panel-header bg-secondary-gradient">
     <div class="page-inner py-4">
       <div class="page-header text-white">
-        <!-- judul halaman -->
+         
         <h4 class="page-title text-white"><i class="fas fa-file-signature mr-2"></i> Laporan Stok</h4>
-        <!-- breadcrumbs -->
+         
         <ul class="breadcrumbs">
           <li class="nav-home"><a href="?module=dashboard"><i class="flaticon-home text-white"></i></a></li>
           <li class="separator"><i class="flaticon-right-arrow"></i></li>
@@ -25,16 +25,16 @@ else { ?>
   </div>
 
   <?php
-  // mengecek data hasil submit dari form filter
-  // jika tidak ada data yang dikirim (tombol tampilkan belum diklik) 
+   
+   
   if (!isset($_POST['tampil'])) { ?>
     <div class="page-inner mt--5">
       <div class="card">
         <div class="card-header">
-          <!-- judul form -->
+           
           <div class="card-title">Filter Data Stok</div>
         </div>
-        <!-- form filter data -->
+         
         <div class="card-body">
           <form action="?module=laporan_stok" method="post" class="needs-validation" novalidate>
             <div class="row">
@@ -44,12 +44,12 @@ else { ?>
                   <select name="jenis_barang" class="form-control chosen-select" autocomplete="off" required>
                   <option selected disabled value="">-- Pilih --</option>
                   <?php
-                  // sql statement untuk menampilkan data dari tabel "tbl_jenis"
+                   
                   $query_jenis = mysqli_query($mysqli, "SELECT id_jenis, nama_jenis FROM tbl_jenis ORDER BY id_jenis ASC")
                                                          or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                  // ambil data hasil query
+                   
                   while ($data_jenis = mysqli_fetch_assoc($query_jenis)) {
-                    // tampilkan data
+                     
                     echo "<option>$data_jenis[nama_jenis]</option>";
                   }
                   ?>
@@ -60,7 +60,7 @@ else { ?>
 
               <div class="col-lg-3">
                 <div class="form-group pt-3">
-                  <!-- tombol tampil data -->
+                   
                   <input type="submit" name="tampil" value="Tampilkan" class="btn btn-secondary btn-round btn-block mt-4">
                 </div>
               </div>
@@ -71,18 +71,18 @@ else { ?>
     </div>
   <?php
   }
-  // jika ada data yang dikirim (tombol tampilkan diklik)
+   
   else {
-    // ambil data hasil submit dari form filter
+     
     $jenis_barang = $_POST['jenis_barang'];
   ?>
     <div class="page-inner mt--5">
       <div class="card">
         <div class="card-header">
-          <!-- judul form -->
+           
           <div class="card-title">Filter Data Stok</div>
         </div>
-        <!-- form filter data -->
+         
         <div class="card-body">
           <form action="?module=laporan_stok" method="post" class="needs-validation" novalidate>
             <div class="row">
@@ -92,12 +92,12 @@ else { ?>
                   <select name="jenis_barang" class="form-control chosen-select" autocomplete="off" required>
                   <option selected disabled value=""><?php echo $jenis_barang; ?></option>
                   <?php
-                  // sql statement untuk menampilkan data dari tabel "tbl_jenis"
+                   
                   $query_jenis = mysqli_query($mysqli, "SELECT id_jenis, nama_jenis FROM tbl_jenis ORDER BY id_jenis ASC")
                                                          or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                  // ambil data hasil query
+                   
                   while ($data_jenis = mysqli_fetch_assoc($query_jenis)) {
-                    // tampilkan data
+                     
                     echo "<option >$data_jenis[nama_jenis]</option>";
                   }
                   ?>
@@ -108,14 +108,14 @@ else { ?>
 
               <div class="col-lg-3">
                 <div class="form-group pt-3">
-                  <!-- tombol tampil data -->
+                   
                   <input type="submit" name="tampil" value="Tampilkan" class="btn btn-secondary btn-round btn-block mt-4">
                 </div>
               </div>
 
               <div class="col-lg-2 pl-0">
                 <div class="form-group pt-3">
-                  <!-- tombol export laporan -->
+                   
                   <a href="modules/laporan-stok/export.php?jenis_barang=<?php echo $jenis_barang; ?>" target="_blank" class="btn btn-success btn-round btn-block mt-4">
                     <span class="btn-label"><i class="fa fa-file-excel mr-2"></i></span> Export
                   </a>
@@ -128,14 +128,14 @@ else { ?>
 
       <div class="card">
         <div class="card-header">
-          <!-- judul tabel -->
+           
           <div class="card-title">
             <i class="fas fa-file-alt mr-2"></i> Laporan Data Persediaan Barang <strong><?php echo $jenis_barang; ?></strong>
           </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <!-- tabel untuk menampilkan data dari database -->
+             
             <table id="basic-datatables" class="display table table-bordered table-striped table-hover">
               <thead>
                 <tr>
@@ -152,18 +152,27 @@ else { ?>
               </thead>
               <tbody>
                 <?php
-                // variabel untuk nomor urut tabel
+                 
                 $no = 1;
 
-                // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", "tbl_jenis" dan tabel "tbl_satuan" berdasarkan "tanggal"
+                 
                 $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan, d.tanggalm, d.jumlahm, e.tanggalk, e.jumlahk
                                       FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c INNER JOIN tbl_barang_masuk as d INNER JOIN tbl_barang_keluar as e
                                       ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan AND d.barang=a.id_barang AND e.barang=a.id_barang
-                                      WHERE LOWER(b.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.id_barang ASC")
+                                      WHERE LOWER(b.nama_jenis) LIKE LOWER('%$jenis_barang%') ORDER BY a.jenis ASC")
                                       or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                // ambil data hasil query
-                while ($data = mysqli_fetch_assoc($query)) { ?>
-                  <!-- tampilkan data -->
+                 
+                
+                $stok = 0;
+                $jumlahmm=0;
+                $jumlahkk=0;
+                while ($data = mysqli_fetch_assoc($query)) { 
+                  $stok = $data['jumlahm'] - $data['jumlahk'];
+                  $jumlahmm =$data['jumlahm'];
+                  $jumlahkk =$data['jumlahk'];
+                  
+                  ?>
+                   
                   <tr>
                     <td width="50" class="text-center"><?php echo $no++; ?></td>
                     <td width="90" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggalm'])); ?></td>
@@ -171,20 +180,9 @@ else { ?>
                     <td width="150"><?php echo $data['nama_barang']; ?></td>
                     <td width="110" class="text-left"><?php echo $data['nama_jenis']; ?></td>
                     <td width="90" class="text-center"><?php echo $data['nama_satuan']; ?></td>
-                    <td width="100" class="text-right"><?php echo number_format($data['jumlahm'], 0, '', '.'); ?></td>
-                    <td width="80" class="text-center"><?php echo number_format($data['jumlahk'], 0, '', '.'); ?></td>
-                    <?php
-                      // mengecek data "stok"
-                      // jika data stok minim
-                      if ($data['stok'] <= $data['stok_minimum']) { ?>
-                        <!-- tampilkan data dengan warna background -->
-                        <td width="70" class="text-right"><span class="badge badge-warning"><?php echo $data['stok']; ?></span></td>
-                      <?php }
-                      // jika data stok tidak minim
-                      else { ?>
-                        <!-- tampilkan data tanpa warna background -->
-                        <td width="70" class="text-right"><?php echo $data['stok']; ?></td>
-                      <?php } ?>
+                    <td width="100" class="text-right"><?=number_format($jumlahmm, 0,'','.')?></td>
+                    <td width="80" class="text-center"><?=number_format($jumlahkk, 0,'','.')?></td>
+                    <td width="70" class="text-center"><?=$stok?></td>
                   </tr>
                 <?php } ?>
               </tbody>

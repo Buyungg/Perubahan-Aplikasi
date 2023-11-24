@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2023 at 04:46 PM
+-- Generation Time: Nov 24, 2023 at 03:27 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.29
 
@@ -42,7 +42,8 @@ CREATE TABLE `tbl_barang` (
 
 INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`) VALUES
 ('B0001', 'mouse', 2, 0, 10, 2),
-('B0002', 'Buku', 1, 0, 20, 5);
+('B0002', 'Buku', 1, 0, 20, 5),
+('B0003', 'Kertas HVS', 1, 0, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,9 @@ CREATE TABLE `tbl_barang_keluar` (
 
 INSERT INTO `tbl_barang_keluar` (`id_transaksi`, `tanggalk`, `barang`, `hargak`, `jumlahk`, `totalk`, `serah`) VALUES
 ('TK-0000001', '2023-09-13', 'B0002', 30000, 50, 1500000, 'Pengurus Barang'),
-('TK-0000002', '2023-11-01', 'B0001', 50000, 40, 2000000, 'Pengurus Barang');
+('TK-0000002', '2023-11-01', 'B0001', 50000, 40, 2000000, 'Pengurus Barang'),
+('TK-0000004', '2023-11-23', 'B0003', 42000, 10, 420000, 'Pencetak'),
+('TK-0000005', '2023-11-24', 'B0003', 42000, 5, 210000, 'Pengurus Barang');
 
 --
 -- Triggers `tbl_barang_keluar`
@@ -110,7 +113,9 @@ CREATE TABLE `tbl_barang_masuk` (
 
 INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggalm`, `barang`, `nomor`, `hargam`, `jumlahm`, `dari`, `totalm`, `guna`) VALUES
 ('TM-0000001', '2023-09-13', 'B0001', '01/01.026/Capil/2023', 50000, 50, 'Bendahara Pengeluaran', 2500000, 'Sekretariat'),
-('TM-0000002', '2023-09-13', 'B0002', '04/01.026/Capil/2023', 30000, 70, 'Bendahara Pengeluaran', 2100000, 'Sekretariat');
+('TM-0000002', '2023-09-13', 'B0002', '04/01.026/Capil/2023', 30000, 70, 'Bendahara Pengeluaran', 2100000, 'Sekretariat'),
+('TM-0000004', '2023-11-23', 'B0003', '01/01.0024/III/2022', 42000, 10, 'Bendahara ', 420000, 'Sekretariat'),
+('TM-0000005', '2023-11-24', 'B0003', '04/01.026/Capil/2023', 42000, 20, 'Bendahara Pengeluaran', 840000, 'Sekretariat');
 
 --
 -- Triggers `tbl_barang_masuk`
@@ -192,7 +197,7 @@ CREATE TABLE `tbl_user` (
   `nama_user` varchar(30) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `hak_akses` enum('Administrator','Admin Gudang','Kepala Gudang') NOT NULL
+  `hak_akses` enum('Kepala Bidang','Pengurus Barang') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -200,8 +205,8 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
-(1, 'Admin', 'admin', '$2y$12$Yi/I5f1jPoQNQnh6lWoVfuz.RtZ3OHcKN6PU.I62P0fYK1tJ7xMRi', 'Administrator'),
-(5, 'user', 'user', '$2y$12$Ib48fx4TGThnqwGo/EBkJuLBhJ5A.BCPVEWLE/GIRFEp1Y9y.6oYu', 'Admin Gudang');
+(1, 'Kepala Bidang', 'kabid', '$2y$12$ZQyW8f3uzs8/kHC8P4Cqm./jd8maawEAwRukamRwTFZ2PBy0UzjAG', 'Kepala Bidang'),
+(7, 'Pengurus Barang', 'pengurus', '$2y$12$oRbQeuyMw8aWSOL12lpWGuhk1LIaayEZdZQClx7Ci1eXSbds6j1wW', 'Pengurus Barang');
 
 --
 -- Indexes for dumped tables
@@ -263,7 +268,7 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,20 +1,20 @@
 <?php
-session_start();      // mengaktifkan session
+session_start();       
 
-// pengecekan session login user 
-// jika user belum login
+ 
+ 
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
-  // alihkan ke halaman login dan tampilkan pesan peringatan login
+   
   header('location: ../../login.php?pesan=2');
 }
-// jika user sudah login, maka jalankan perintah untuk update
+ 
 else {
-  // panggil file "database.php" untuk koneksi ke database
+   
   require_once "../../config/database.php";
 
-  // mengecek data hasil submit dari form
+   
   if (isset($_POST['simpan'])) {
-    // ambil data hasil submit dari form
+     
     $id_barang = mysqli_real_escape_string($mysqli, $_POST['id_barang']);
     $id_transaksi  = mysqli_real_escape_string($mysqli, $_POST['id_transaksi']);
     $nomor       = mysqli_real_escape_string($mysqli, trim($_POST['nomor']));
